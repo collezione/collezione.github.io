@@ -1,0 +1,4254 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Untitled Document</title>
+<style type="text/css">
+<!--
+body {
+	font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
+	background: #42413C;
+	margin: 0;
+	padding: 0;
+	color: #000;
+}
+/* ~~ Element/tag selectors ~~ */
+ul, ol, dl { /* Due to variations between browsers, it's best practices to zero padding and margin on lists. For consistency, you can either specify the amounts you want here, or on the list items (LI, DT, DD) they contain. Remember that what you do here will cascade to the .nav list unless you write a more specific selector. */
+	padding: 0;
+	margin: 0;
+}
+h1, h2, h3, h4, h5, h6, p {
+	margin-top: 0;	 /* removing the top margin gets around an issue where margins can escape from their containing block. The remaining bottom margin will hold it away from any elements that follow. */
+	padding-right: 25px;
+	padding-left: 220px; /* adding the padding to the sides of the elements within the blocks, instead of the block elements themselves, gets rid of any box model math. A nested block with side padding can also be used as an alternate method. */
+}
+a img { /* this selector removes the default blue border displayed in some browsers around an image when it is surrounded by a link */
+	border: none;
+}
+/* ~~ Styling for your site's links must remain in this order - including the group of selectors that create the hover effect. ~~ */
+a:link {
+	color: #000;
+	text-decoration: underline; /* unless you style your links to look extremely unique, it's best to provide underlines for quick visual identification */
+}
+a:visited {
+	color: #000;
+	text-decoration: underline;
+}
+a:hover, a:active, a:focus { /* this group of selectors will give a keyboard navigator the same hover experience as the person using a mouse. */
+	text-decoration: none;
+}
+/* ~~ This fixed width container surrounds all other blocks ~~ */
+.container {
+	width: 960px;
+	background: #FFFFFF;
+	margin: 0 auto; /* the auto value on the sides, coupled with the width, centers the layout */
+}
+/* ~~ The header is not given a width. It will extend the full width of your layout. ~~ */
+header {
+	background: #ADB96E;
+}
+/* ~~ These are the columns for the layout. ~~ 
+
+1) Padding is only placed on the top and/or bottom of the block elements. The elements within these blocks have padding on their sides. This saves you from any "box model math". Keep in mind, if you add any side padding or border to the block itself, it will be added to the width you define to create the *total* width. You may also choose to remove the padding on the element in the block element and place a second block element within it with no width and the padding necessary for your design.
+
+2) No margin has been given to the columns since they are all floated. If you must add margin, avoid placing it on the side you're floating toward (for example: a right margin on a block set to float right). Many times, padding can be used instead. For blocks where this rule must be broken, you should add a "display:inline" declaration to the block element's rule to tame a bug where some versions of Internet Explorer double the margin.
+
+3) Since classes can be used multiple times in a document (and an element can also have multiple classes applied), the columns have been assigned class names instead of IDs. For example, two sidebar blocks could be stacked if necessary. These can very easily be changed to IDs if that's your preference, as long as you'll only be using them once per document.
+
+4) If you prefer your nav on the left instead of the right, simply float these columns the opposite direction (all left instead of all right) and they'll render in reverse order. There's no need to move the blocks around in the HTML source.
+
+*/
+.sidebar1 {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding-bottom: 10px;
+}
+.content {
+	padding: 10px 0;
+	width: 600px;
+	float: left;
+}
+aside {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding: 10px 0;
+}
+
+/* ~~ This grouped selector gives the lists in the .content area space ~~ */
+.content ul, .content ol {
+	padding: 0 15px 15px 40px; /* this padding mirrors the right padding in the headings and paragraph rule above. Padding was placed on the bottom for space between other elements on the lists and on the left to create the indention. These may be adjusted as you wish. */
+}
+
+/* ~~ The navigation list styles (can be removed if you choose to use a premade flyout menu like Spry) ~~ */
+nav ul {
+	list-style: none; /* this removes the list marker */
+	border-top: 1px solid #666; /* this creates the top border for the links - all others are placed using a bottom border on the LI */
+	margin-bottom: 15px; /* this creates the space between the navigation on the content below */
+}
+nav ul li {
+	border-bottom: 1px solid #666; /* this creates the button separation */
+}
+nav ul a, nav ul a:visited { /* grouping these selectors makes sure that your links retain their button look even after being visited */
+	padding: 5px 5px 5px 15px;
+	display: block; /* this gives the link block properties causing it to fill the whole LI containing it. This causes the entire area to react to a mouse click. */
+	width: 160px;  /*this width makes the entire button clickable for IE6. If you don't need to support IE6, it can be removed. Calculate the proper width by subtracting the padding on this link from the width of your sidebar container. */
+	text-decoration: none;
+	background: #C6D580;
+}
+nav ul a:hover, nav ul a:active, nav ul a:focus { /* this changes the background and text color for both mouse and keyboard navigators */
+	background: #ADB96E;
+	color: #FFF;
+}
+
+/* ~~ The footer ~~ */
+footer {
+	padding: 10px 0;
+	background: #CCC49F;
+	position: relative;/* this gives IE6 hasLayout to properly clear */
+	clear: both; /* this clear property forces the .container to understand where the columns end and contain them */
+}
+/* ~~ Miscellaneous float/clear classes ~~ */
+.fltrt {  /* this class can be used to float an element right in your page. The floated element must precede the element it should be next to on the page. */
+	float: right;
+	margin-left: 8px;
+}
+.fltlft { /* this class can be used to float an element left in your page. The floated element must precede the element it should be next to on the page. */
+	float: left;
+	margin-right: 8px;
+}
+.clearfloat { /* this class can be placed on a <br /> or empty block element as the final element following the last floated block (within the .container) if the footer is removed or taken out of the .container */
+	clear:both;
+	height:0;
+	font-size: 1px;
+	line-height: 0px;
+}
+
+/*HTML 5 support - Sets new HTML 5 tags to display:block so browsers know how to render the tags properly. */
+header, section, footer, aside, nav, article, figure {
+	display: block;
+}
+-->
+</style><!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script src="SpryAssets/SpryMenuBar.js" type="text/javascript"></script>
+<link href="SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<div class="container">
+  <header>
+    <a href="#"><img src="logo.jpg" alt="Insert Logo Here" name="Insert_logo" width="960" height="150" id="Insert_logo" style="background: #C6D580; display:block;" /></a>
+  </header>
+  <div class="sidebar1">
+    <nav>
+      <ul>
+        <li><a href="anasayfa.html">Anasayfa</a></li>
+        <li><a href="hakkimizda.html">Hakkımızda</a></li>
+        <li><a href="iletisim.html">İletişim</a></li>
+        <li><a href="uyelik.html">Üyelik</a></li>
+      </ul>
+    </nav>
+  <img src="gifler/gif5.gif" width="180" height="240">  <!-- end .sidebar1 --></div>
+  <article class="content">
+    <section>
+<blockquote>
+<ul id="MenuBar1" class="MenuBarHorizontal">
+  <li><a class="MenuBarItemSubmenu" href="#">Erkek</a>
+    <ul>
+      <li><a href="mont.html">Mont</a></li>
+      <li><a href="hirka.html">H&#305;rka</a></li>
+      <li><a href="kazak.html">Kazak</a></li>
+      <li><a href="kot.html">Kot</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Bayan</a>
+    <ul>
+      <li><a href="etek.html">Etek</a></li>
+      <li><a href="swit.html">Swit</a></li>
+      <li><a href="badi.html">Badi</a></li>
+      <li><a href="pantolon.html">Pantolon</a></li>
+    </ul>
+  </li>
+  <li><a class="MenuBarItemSubmenu" href="#">&Ccedil;ocuk</a>
+    <ul>
+      <li><a href="gomlek.html">G&ouml;mlek</a>        </li>
+      <li><a href="yelek.html">Yelek</a></li>
+      <li><a href="tulum.html">Tulum</a></li>
+      <li><a href="tisort.html">Ti&#351;ort</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Aksesuar</a>
+    <ul>
+      <li><a href="saat.html">Saat</a></li>
+      <li><a href="sal.html">&#350;al</a></li>
+      <li><a href="taki.html">Tak&#305;</a></li>
+      <li><a href="atkibere.html">Atk&#305;/Bere</a></li>
+    </ul>
+  </li>
+</ul>
+<h2>&nbsp;</h2>
+</blockquote>
+<p>&nbsp;</p>
+      <h2>ATKI &amp; BERE</h2>
+    </section>
+    <section>
+    <img src="atkibere/atkibere.jpg" width="294" height="470"> <img src="atkibere/atkibere1.jpg" width="300" height="470"><img src="atkibere/atkibere2.jpg" width="294" height="470"> <img src="atkibere/atkibere3.jpg" width="300" height="470"><img src="atkibere/atkibere4.jpg" width="294" height="470"> <img src="atkibere/atkibere5.jpg" width="300" height="470"><img src="atkibere/atkibere6.jpg" width="294" height="470"> <img src="atkibere/atkibere7.jpg" width="300" height="470"><img src="atkibere/atkibere8.jpg" width="294" height="470"> <img src="atkibere/atkibere9.jpg" width="300" height="470"></section>
+    <section>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+    </section>
+  <!-- end .content --></article>
+  <aside>
+       <form>
+Adın <input type="text" name="firstname"></br>
+Soyadın <input type="text" name="firstname"></br>
+Kullanıcı Adın <input type="text" name="firstname"></
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Untitled Document</title>
+<style type="text/css">
+<!--
+body {
+	font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
+	background: #42413C;
+	margin: 0;
+	padding: 0;
+	color: #000;
+}
+/* ~~ Element/tag selectors ~~ */
+ul, ol, dl { /* Due to variations between browsers, it's best practices to zero padding and margin on lists. For consistency, you can either specify the amounts you want here, or on the list items (LI, DT, DD) they contain. Remember that what you do here will cascade to the .nav list unless you write a more specific selector. */
+	padding: 0;
+	margin: 0;
+}
+h1, h2, h3, h4, h5, h6, p {
+	margin-top: 0;	 /* removing the top margin gets around an issue where margins can escape from their containing block. The remaining bottom margin will hold it away from any elements that follow. */
+	padding-right: 25px;
+	padding-left: 240px; /* adding the padding to the sides of the elements within the blocks, instead of the block elements themselves, gets rid of any box model math. A nested block with side padding can also be used as an alternate method. */
+}
+a img { /* this selector removes the default blue border displayed in some browsers around an image when it is surrounded by a link */
+	border: none;
+}
+/* ~~ Styling for your site's links must remain in this order - including the group of selectors that create the hover effect. ~~ */
+a:link {
+	color: #000;
+	text-decoration: underline; /* unless you style your links to look extremely unique, it's best to provide underlines for quick visual identification */
+}
+a:visited {
+	color: #000;
+	text-decoration: underline;
+}
+a:hover, a:active, a:focus { /* this group of selectors will give a keyboard navigator the same hover experience as the person using a mouse. */
+	text-decoration: none;
+}
+/* ~~ This fixed width container surrounds all other blocks ~~ */
+.container {
+	width: 960px;
+	background: #FFFFFF;
+	margin: 0 auto; /* the auto value on the sides, coupled with the width, centers the layout */
+}
+/* ~~ The header is not given a width. It will extend the full width of your layout. ~~ */
+header {
+	background: #ADB96E;
+}
+/* ~~ These are the columns for the layout. ~~ 
+
+1) Padding is only placed on the top and/or bottom of the block elements. The elements within these blocks have padding on their sides. This saves you from any "box model math". Keep in mind, if you add any side padding or border to the block itself, it will be added to the width you define to create the *total* width. You may also choose to remove the padding on the element in the block element and place a second block element within it with no width and the padding necessary for your design.
+
+2) No margin has been given to the columns since they are all floated. If you must add margin, avoid placing it on the side you're floating toward (for example: a right margin on a block set to float right). Many times, padding can be used instead. For blocks where this rule must be broken, you should add a "display:inline" declaration to the block element's rule to tame a bug where some versions of Internet Explorer double the margin.
+
+3) Since classes can be used multiple times in a document (and an element can also have multiple classes applied), the columns have been assigned class names instead of IDs. For example, two sidebar blocks could be stacked if necessary. These can very easily be changed to IDs if that's your preference, as long as you'll only be using them once per document.
+
+4) If you prefer your nav on the left instead of the right, simply float these columns the opposite direction (all left instead of all right) and they'll render in reverse order. There's no need to move the blocks around in the HTML source.
+
+*/
+.sidebar1 {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding-bottom: 10px;
+}
+.content {
+	padding: 10px 0;
+	width: 600px;
+	float: left;
+}
+aside {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding: 10px 0;
+}
+
+/* ~~ This grouped selector gives the lists in the .content area space ~~ */
+.content ul, .content ol {
+	padding: 0 15px 15px 40px; /* this padding mirrors the right padding in the headings and paragraph rule above. Padding was placed on the bottom for space between other elements on the lists and on the left to create the indention. These may be adjusted as you wish. */
+}
+
+/* ~~ The navigation list styles (can be removed if you choose to use a premade flyout menu like Spry) ~~ */
+nav ul {
+	list-style: none; /* this removes the list marker */
+	border-top: 1px solid #666; /* this creates the top border for the links - all others are placed using a bottom border on the LI */
+	margin-bottom: 15px; /* this creates the space between the navigation on the content below */
+}
+nav ul li {
+	border-bottom: 1px solid #666; /* this creates the button separation */
+}
+nav ul a, nav ul a:visited { /* grouping these selectors makes sure that your links retain their button look even after being visited */
+	padding: 5px 5px 5px 15px;
+	display: block; /* this gives the link block properties causing it to fill the whole LI containing it. This causes the entire area to react to a mouse click. */
+	width: 160px;  /*this width makes the entire button clickable for IE6. If you don't need to support IE6, it can be removed. Calculate the proper width by subtracting the padding on this link from the width of your sidebar container. */
+	text-decoration: none;
+	background: #C6D580;
+}
+nav ul a:hover, nav ul a:active, nav ul a:focus { /* this changes the background and text color for both mouse and keyboard navigators */
+	background: #ADB96E;
+	color: #FFF;
+}
+
+/* ~~ The footer ~~ */
+footer {
+	padding: 10px 0;
+	background: #CCC49F;
+	position: relative;/* this gives IE6 hasLayout to properly clear */
+	clear: both; /* this clear property forces the .container to understand where the columns end and contain them */
+}
+/* ~~ Miscellaneous float/clear classes ~~ */
+.fltrt {  /* this class can be used to float an element right in your page. The floated element must precede the element it should be next to on the page. */
+	float: right;
+	margin-left: 8px;
+}
+.fltlft { /* this class can be used to float an element left in your page. The floated element must precede the element it should be next to on the page. */
+	float: left;
+	margin-right: 8px;
+}
+.clearfloat { /* this class can be placed on a <br /> or empty block element as the final element following the last floated block (within the .container) if the footer is removed or taken out of the .container */
+	clear:both;
+	height:0;
+	font-size: 1px;
+	line-height: 0px;
+}
+
+/*HTML 5 support - Sets new HTML 5 tags to display:block so browsers know how to render the tags properly. */
+header, section, footer, aside, nav, article, figure {
+	display: block;
+}
+-->
+</style><!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script src="SpryAssets/SpryMenuBar.js" type="text/javascript"></script>
+<link href="SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<div class="container">
+  <header>
+    <a href="#"><img src="logo.jpg" alt="Insert Logo Here" name="Insert_logo" width="960" height="150" id="Insert_logo" style="background: #C6D580; display:block;" /></a>
+  </header>
+<div class="sidebar1">
+    <nav>
+      <ul>
+        <li><a href="anasayfa.html">Anasayfa</a></li>
+        <li><a href="hakkimizda.html">Hakkımızda</a></li>
+        <li><a href="iletisim.html">İletişim</a></li>
+        <li><a href="uyelik.html">Üyelik</a></li>
+      </ul>
+    </nav>
+  <img src="gifler/gif5.gif" width="180" height="240">  <!-- end .sidebar1 --></div>
+  <article class="content">
+    <section>
+<blockquote>
+<ul id="MenuBar1" class="MenuBarHorizontal">
+  <li><a class="MenuBarItemSubmenu" href="#">Erkek</a>
+    <ul>
+      <li><a href="mont.html">Mont</a></li>
+      <li><a href="hirka.html">H&#305;rka</a></li>
+      <li><a href="kazak.html">Kazak</a></li>
+      <li><a href="kot.html">Kot</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Bayan</a>
+    <ul>
+      <li><a href="etek.html">Etek</a></li>
+      <li><a href="swit.html">Swit</a></li>
+      <li><a href="badi.html">Badi</a></li>
+      <li><a href="pantolon.html">Pantolon</a></li>
+    </ul>
+  </li>
+  <li><a class="MenuBarItemSubmenu" href="#">&Ccedil;ocuk</a>
+    <ul>
+      <li><a href="gomlek.html">G&ouml;mlek</a>        </li>
+      <li><a href="yelek.html">Yelek</a></li>
+      <li><a href="tulum.html">Tulum</a></li>
+      <li><a href="tisort.html">Ti&#351;ort</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Aksesuar</a>
+    <ul>
+      <li><a href="saat.html">Saat</a></li>
+      <li><a href="sal.html">&#350;al</a></li>
+      <li><a href="taki.html">Tak&#305;</a></li>
+      <li><a href="atkibere.html">Atk&#305;/Bere</a></li>
+    </ul>
+  </li>
+</ul>
+<h2>&nbsp;</h2>
+</blockquote>
+<p>&nbsp;</p>
+      <h2>BADİLER</h2>
+    </section>
+    <section>
+    <img src="badi/badi.jpg" width="294" height="470"> <img src="badi/badi1.jpg" width="300" height="470"><img src="badi/badi2.jpg" width="294" height="470"> <img src="badi/badi3.jpg" width="300" height="470"><img src="badi/badi4.jpg" width="294" height="470"> <img src="badi/badi5.jpg" width="300" height="470"><img src="badi/badi6.jpg" width="294" height="470"> <img src="badi/badi7.jpg" width="300" height="470"><img src="badi/badi8.jpg" width="294" height="470"> <img src="badi/badi9.jpg" width="300" height="470"></section>
+    <section>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+    </section>
+  <!-- end .content --></article>
+  <aside>
+         <form>
+Adın <input type="text" name="firstname"></br>
+Soyadın <input type="text" name="firstname"></br>
+Kullanıcı Adın <input type="text" name="firstname"></br>
+Parolan <input type="password" name="pwd"></br>
+<input type="submit" value="Giriş Yap">
+<input type="reset" value="Temizle">
+</form>
+</aside>
+  <footer>
+    <p>&nbsp;</p>
+</footer>
+  <!-- end .container --></div>
+<script type="text/javascript">
+var MenuBar1 = new Spry.Widget.MenuBar("MenuBar1", {imgDown:"SpryAssets/SpryMenuBarDownHover.gif", imgRight:"SpryAssets/SpryMenuBarRightHover.gif"});
+</script>
+</body>
+</html>
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Untitled Document</title>
+<style type="text/css">
+<!--
+body {
+	font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
+	background: #42413C;
+	margin: 0;
+	padding: 0;
+	color: #000;
+}
+/* ~~ Element/tag selectors ~~ */
+ul, ol, dl { /* Due to variations between browsers, it's best practices to zero padding and margin on lists. For consistency, you can either specify the amounts you want here, or on the list items (LI, DT, DD) they contain. Remember that what you do here will cascade to the .nav list unless you write a more specific selector. */
+	padding: 0;
+	margin: 0;
+}
+h1, h2, h3, h4, h5, h6, p {
+	margin-top: 0;	 /* removing the top margin gets around an issue where margins can escape from their containing block. The remaining bottom margin will hold it away from any elements that follow. */
+	padding-right: 25px;
+	padding-left: 240px; /* adding the padding to the sides of the elements within the blocks, instead of the block elements themselves, gets rid of any box model math. A nested block with side padding can also be used as an alternate method. */
+}
+a img { /* this selector removes the default blue border displayed in some browsers around an image when it is surrounded by a link */
+	border: none;
+}
+/* ~~ Styling for your site's links must remain in this order - including the group of selectors that create the hover effect. ~~ */
+a:link {
+	color: #000;
+	text-decoration: underline; /* unless you style your links to look extremely unique, it's best to provide underlines for quick visual identification */
+}
+a:visited {
+	color: #000;
+	text-decoration: underline;
+}
+a:hover, a:active, a:focus { /* this group of selectors will give a keyboard navigator the same hover experience as the person using a mouse. */
+	text-decoration: none;
+}
+/* ~~ This fixed width container surrounds all other blocks ~~ */
+.container {
+	width: 960px;
+	background: #FFFFFF;
+	margin: 0 auto; /* the auto value on the sides, coupled with the width, centers the layout */
+}
+/* ~~ The header is not given a width. It will extend the full width of your layout. ~~ */
+header {
+	background: #ADB96E;
+}
+/* ~~ These are the columns for the layout. ~~ 
+
+1) Padding is only placed on the top and/or bottom of the block elements. The elements within these blocks have padding on their sides. This saves you from any "box model math". Keep in mind, if you add any side padding or border to the block itself, it will be added to the width you define to create the *total* width. You may also choose to remove the padding on the element in the block element and place a second block element within it with no width and the padding necessary for your design.
+
+2) No margin has been given to the columns since they are all floated. If you must add margin, avoid placing it on the side you're floating toward (for example: a right margin on a block set to float right). Many times, padding can be used instead. For blocks where this rule must be broken, you should add a "display:inline" declaration to the block element's rule to tame a bug where some versions of Internet Explorer double the margin.
+
+3) Since classes can be used multiple times in a document (and an element can also have multiple classes applied), the columns have been assigned class names instead of IDs. For example, two sidebar blocks could be stacked if necessary. These can very easily be changed to IDs if that's your preference, as long as you'll only be using them once per document.
+
+4) If you prefer your nav on the left instead of the right, simply float these columns the opposite direction (all left instead of all right) and they'll render in reverse order. There's no need to move the blocks around in the HTML source.
+
+*/
+.sidebar1 {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding-bottom: 10px;
+}
+.content {
+	padding: 10px 0;
+	width: 600px;
+	float: left;
+}
+aside {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding: 10px 0;
+}
+
+/* ~~ This grouped selector gives the lists in the .content area space ~~ */
+.content ul, .content ol {
+	padding: 0 15px 15px 40px; /* this padding mirrors the right padding in the headings and paragraph rule above. Padding was placed on the bottom for space between other elements on the lists and on the left to create the indention. These may be adjusted as you wish. */
+}
+
+/* ~~ The navigation list styles (can be removed if you choose to use a premade flyout menu like Spry) ~~ */
+nav ul {
+	list-style: none; /* this removes the list marker */
+	border-top: 1px solid #666; /* this creates the top border for the links - all others are placed using a bottom border on the LI */
+	margin-bottom: 15px; /* this creates the space between the navigation on the content below */
+}
+nav ul li {
+	border-bottom: 1px solid #666; /* this creates the button separation */
+}
+nav ul a, nav ul a:visited { /* grouping these selectors makes sure that your links retain their button look even after being visited */
+	padding: 5px 5px 5px 15px;
+	display: block; /* this gives the link block properties causing it to fill the whole LI containing it. This causes the entire area to react to a mouse click. */
+	width: 160px;  /*this width makes the entire button clickable for IE6. If you don't need to support IE6, it can be removed. Calculate the proper width by subtracting the padding on this link from the width of your sidebar container. */
+	text-decoration: none;
+	background: #C6D580;
+}
+nav ul a:hover, nav ul a:active, nav ul a:focus { /* this changes the background and text color for both mouse and keyboard navigators */
+	background: #ADB96E;
+	color: #FFF;
+}
+
+/* ~~ The footer ~~ */
+footer {
+	padding: 10px 0;
+	background: #CCC49F;
+	position: relative;/* this gives IE6 hasLayout to properly clear */
+	clear: both; /* this clear property forces the .container to understand where the columns end and contain them */
+}
+/* ~~ Miscellaneous float/clear classes ~~ */
+.fltrt {  /* this class can be used to float an element right in your page. The floated element must precede the element it should be next to on the page. */
+	float: right;
+	margin-left: 8px;
+}
+.fltlft { /* this class can be used to float an element left in your page. The floated element must precede the element it should be next to on the page. */
+	float: left;
+	margin-right: 8px;
+}
+.clearfloat { /* this class can be placed on a <br /> or empty block element as the final element following the last floated block (within the .container) if the footer is removed or taken out of the .container */
+	clear:both;
+	height:0;
+	font-size: 1px;
+	line-height: 0px;
+}
+
+/*HTML 5 support - Sets new HTML 5 tags to display:block so browsers know how to render the tags properly. */
+header, section, footer, aside, nav, article, figure {
+	display: block;
+}
+-->
+</style><!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script src="SpryAssets/SpryMenuBar.js" type="text/javascript"></script>
+<link href="SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<div class="container">
+  <header>
+    <a href="#"><img src="logo.jpg" alt="Insert Logo Here" name="Insert_logo" width="960" height="150" id="Insert_logo" style="background: #C6D580; display:block;" /></a>
+  </header>
+ <div class="sidebar1">
+    <nav>
+      <ul>
+        <li><a href="anasayfa.html">Anasayfa</a></li>
+        <li><a href="hakkimizda.html">Hakkımızda</a></li>
+        <li><a href="iletisim.html">İletişim</a></li>
+        <li><a href="uyelik.html">Üyelik</a></li>
+      </ul>
+    </nav>
+  <img src="gifler/gif5.gif" width="180" height="240">  <!-- end .sidebar1 --></div>
+  <article class="content">
+    <section>
+<blockquote>
+<ul id="MenuBar1" class="MenuBarHorizontal">
+  <li><a class="MenuBarItemSubmenu" href="#">Erkek</a>
+    <ul>
+      <li><a href="mont.html">Mont</a></li>
+      <li><a href="hirka.html">H&#305;rka</a></li>
+      <li><a href="kazak.html">Kazak</a></li>
+      <li><a href="kot.html">Kot</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Bayan</a>
+    <ul>
+      <li><a href="etek.html">Etek</a></li>
+      <li><a href="swit.html">Swit</a></li>
+      <li><a href="badi.html">Badi</a></li>
+      <li><a href="pantolon.html">Pantolon</a></li>
+    </ul>
+  </li>
+  <li><a class="MenuBarItemSubmenu" href="#">&Ccedil;ocuk</a>
+    <ul>
+      <li><a href="gomlek.html">G&ouml;mlek</a>        </li>
+      <li><a href="yelek.html">Yelek</a></li>
+      <li><a href="tulum.html">Tulum</a></li>
+      <li><a href="tisort.html">Ti&#351;ort</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Aksesuar</a>
+    <ul>
+      <li><a href="saat.html">Saat</a></li>
+      <li><a href="sal.html">&#350;al</a></li>
+      <li><a href="taki.html">Tak&#305;</a></li>
+      <li><a href="atkibere.html">Atk&#305;/Bere</a></li>
+    </ul>
+  </li>
+</ul>
+<h2>&nbsp;</h2>
+</blockquote>
+<p>&nbsp;</p>
+      <h2>ETEKLER</h2>
+    </section>
+    <section>
+    <img src="etek/etek.jpg" width="294" height="470">  <img src="etek/etek1.jpg" width="300" height="470"><img src="etek/etek2.jpg" width="294" height="470"> <img src="etek/etek3.jpg" width="300" height="470"><img src="etek/etek4.jpg" width="294" height="470"> <img src="etek/etek5.jpg" width="300" height="470"><img src="etek/etek6.jpg" width="294" height="470"> <img src="etek/etek7.jpg" width="300" height="470"><img src="etek/etek8.jpg" width="294" height="470"> <img src="etek/etek9.JPG" width="300" height="470"></section>
+    <section>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+    </section>
+  <!-- end .content --></article>
+  <aside>
+           <form>
+Adın <input type="text" name="firstname"></br>
+Soyadın <input type="text" name="firstname"></br>
+Kullanıcı Adın <input type="text" name="firstname"></br>
+Parolan <input type="password" name="pwd"></br>
+<input type="submit" value="Giriş Yap">
+<input type="reset" value="Temizle">
+</form>
+</aside>
+  <footer>
+    <p>&nbsp;</p>
+</footer>
+  <!-- end .container --></div>
+<script type="text/javascript">
+var MenuBar1 = new Spry.Widget.MenuBar("MenuBar1", {imgDown:"SpryAssets/SpryMenuBarDownHover.gif", imgRight:"SpryAssets/SpryMenuBarRightHover.gif"});
+</script>
+</body>
+</html>
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Untitled Document</title>
+<style type="text/css">
+<!--
+body {
+	font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
+	background: #42413C;
+	margin: 0;
+	padding: 0;
+	color: #000;
+}
+/* ~~ Element/tag selectors ~~ */
+ul, ol, dl { /* Due to variations between browsers, it's best practices to zero padding and margin on lists. For consistency, you can either specify the amounts you want here, or on the list items (LI, DT, DD) they contain. Remember that what you do here will cascade to the .nav list unless you write a more specific selector. */
+	padding: 0;
+	margin: 0;
+}
+h1, h2, h3, h4, h5, h6, p {
+	margin-top: 0;	 /* removing the top margin gets around an issue where margins can escape from their containing block. The remaining bottom margin will hold it away from any elements that follow. */
+	padding-right: 25px;
+	padding-left: 225px; /* adding the padding to the sides of the elements within the blocks, instead of the block elements themselves, gets rid of any box model math. A nested block with side padding can also be used as an alternate method. */
+}
+a img { /* this selector removes the default blue border displayed in some browsers around an image when it is surrounded by a link */
+	border: none;
+}
+/* ~~ Styling for your site's links must remain in this order - including the group of selectors that create the hover effect. ~~ */
+a:link {
+	color: #000;
+	text-decoration: underline; /* unless you style your links to look extremely unique, it's best to provide underlines for quick visual identification */
+}
+a:visited {
+	color: #000;
+	text-decoration: underline;
+}
+a:hover, a:active, a:focus { /* this group of selectors will give a keyboard navigator the same hover experience as the person using a mouse. */
+	text-decoration: none;
+}
+/* ~~ This fixed width container surrounds all other blocks ~~ */
+.container {
+	width: 960px;
+	background: #FFFFFF;
+	margin: 0 auto; /* the auto value on the sides, coupled with the width, centers the layout */
+}
+/* ~~ The header is not given a width. It will extend the full width of your layout. ~~ */
+header {
+	background: #ADB96E;
+}
+/* ~~ These are the columns for the layout. ~~ 
+
+1) Padding is only placed on the top and/or bottom of the block elements. The elements within these blocks have padding on their sides. This saves you from any "box model math". Keep in mind, if you add any side padding or border to the block itself, it will be added to the width you define to create the *total* width. You may also choose to remove the padding on the element in the block element and place a second block element within it with no width and the padding necessary for your design.
+
+2) No margin has been given to the columns since they are all floated. If you must add margin, avoid placing it on the side you're floating toward (for example: a right margin on a block set to float right). Many times, padding can be used instead. For blocks where this rule must be broken, you should add a "display:inline" declaration to the block element's rule to tame a bug where some versions of Internet Explorer double the margin.
+
+3) Since classes can be used multiple times in a document (and an element can also have multiple classes applied), the columns have been assigned class names instead of IDs. For example, two sidebar blocks could be stacked if necessary. These can very easily be changed to IDs if that's your preference, as long as you'll only be using them once per document.
+
+4) If you prefer your nav on the left instead of the right, simply float these columns the opposite direction (all left instead of all right) and they'll render in reverse order. There's no need to move the blocks around in the HTML source.
+
+*/
+.sidebar1 {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding-bottom: 10px;
+}
+.content {
+	padding: 10px 0;
+	width: 600px;
+	float: left;
+}
+aside {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding: 10px 0;
+}
+
+/* ~~ This grouped selector gives the lists in the .content area space ~~ */
+.content ul, .content ol {
+	padding: 0 15px 15px 40px; /* this padding mirrors the right padding in the headings and paragraph rule above. Padding was placed on the bottom for space between other elements on the lists and on the left to create the indention. These may be adjusted as you wish. */
+}
+
+/* ~~ The navigation list styles (can be removed if you choose to use a premade flyout menu like Spry) ~~ */
+nav ul {
+	list-style: none; /* this removes the list marker */
+	border-top: 1px solid #666; /* this creates the top border for the links - all others are placed using a bottom border on the LI */
+	margin-bottom: 15px; /* this creates the space between the navigation on the content below */
+}
+nav ul li {
+	border-bottom: 1px solid #666; /* this creates the button separation */
+}
+nav ul a, nav ul a:visited { /* grouping these selectors makes sure that your links retain their button look even after being visited */
+	padding: 5px 5px 5px 15px;
+	display: block; /* this gives the link block properties causing it to fill the whole LI containing it. This causes the entire area to react to a mouse click. */
+	width: 160px;  /*this width makes the entire button clickable for IE6. If you don't need to support IE6, it can be removed. Calculate the proper width by subtracting the padding on this link from the width of your sidebar container. */
+	text-decoration: none;
+	background: #C6D580;
+}
+nav ul a:hover, nav ul a:active, nav ul a:focus { /* this changes the background and text color for both mouse and keyboard navigators */
+	background: #ADB96E;
+	color: #FFF;
+}
+
+/* ~~ The footer ~~ */
+footer {
+	padding: 10px 0;
+	background: #CCC49F;
+	position: relative;/* this gives IE6 hasLayout to properly clear */
+	clear: both; /* this clear property forces the .container to understand where the columns end and contain them */
+}
+/* ~~ Miscellaneous float/clear classes ~~ */
+.fltrt {  /* this class can be used to float an element right in your page. The floated element must precede the element it should be next to on the page. */
+	float: right;
+	margin-left: 8px;
+}
+.fltlft { /* this class can be used to float an element left in your page. The floated element must precede the element it should be next to on the page. */
+	float: left;
+	margin-right: 8px;
+}
+.clearfloat { /* this class can be placed on a <br /> or empty block element as the final element following the last floated block (within the .container) if the footer is removed or taken out of the .container */
+	clear:both;
+	height:0;
+	font-size: 1px;
+	line-height: 0px;
+}
+
+/*HTML 5 support - Sets new HTML 5 tags to display:block so browsers know how to render the tags properly. */
+header, section, footer, aside, nav, article, figure {
+	display: block;
+}
+-->
+</style><!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script src="SpryAssets/SpryMenuBar.js" type="text/javascript"></script>
+<link href="SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<div class="container">
+  <header>
+    <a href="#"><img src="logo.jpg" alt="Insert Logo Here" name="Insert_logo" width="960" height="150" id="Insert_logo" style="background: #C6D580; display:block;" /></a>
+  </header>
+<div class="sidebar1">
+    <nav>
+      <ul>
+        <li><a href="anasayfa.html">Anasayfa</a></li>
+        <li><a href="hakkimizda.html">Hakkımızda</a></li>
+        <li><a href="iletisim.html">İletişim</a></li>
+        <li><a href="uyelik.html">Üyelik</a></li>
+      </ul>
+    </nav>
+  <img src="gifler/gif5.gif" width="180" height="240">  <!-- end .sidebar1 --></div>
+  <article class="content">
+    <section>
+<blockquote>
+<ul id="MenuBar1" class="MenuBarHorizontal">
+  <li><a class="MenuBarItemSubmenu" href="#">Erkek</a>
+    <ul>
+      <li><a href="mont.html">Mont</a></li>
+      <li><a href="hirka.html">H&#305;rka</a></li>
+      <li><a href="kazak.html">Kazak</a></li>
+      <li><a href="kot.html">Kot</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Bayan</a>
+    <ul>
+      <li><a href="etek.html">Etek</a></li>
+      <li><a href="swit.html">Swit</a></li>
+      <li><a href="badi.html">Badi</a></li>
+      <li><a href="pantolon.html">Pantolon</a></li>
+    </ul>
+  </li>
+  <li><a class="MenuBarItemSubmenu" href="#">&Ccedil;ocuk</a>
+    <ul>
+      <li><a href="gomlek.html">G&ouml;mlek</a>        </li>
+      <li><a href="yelek.html">Yelek</a></li>
+      <li><a href="tulum.html">Tulum</a></li>
+      <li><a href="tisort.html">Ti&#351;ort</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Aksesuar</a>
+    <ul>
+      <li><a href="saat.html">Saat</a></li>
+      <li><a href="sal.html">&#350;al</a></li>
+      <li><a href="taki.html">Tak&#305;</a></li>
+      <li><a href="atkibere.html">Atk&#305;/Bere</a></li>
+    </ul>
+  </li>
+</ul>
+<h2>&nbsp;</h2>
+</blockquote>
+<p>&nbsp;</p>
+      <h2>GÖMLEKLER</h2>
+    </section>
+    <section>
+    <img src="gomlek/gomlek.jpg" width="294" height="470"> <img src="gomlek/gomlek1.jpg" width="300" height="470"><img src="gomlek/gomlek2.jpg" width="294" height="470"> <img src="gomlek/gomlek3.jpg" width="300" height="470"><img src="gomlek/gomlek4.jpg" width="294" height="470"> <img src="gomlek/gomlek5.jpg" width="300" height="470"><img src="gomlek/gomlek6.jpg" width="294" height="470"> <img src="gomlek/gomlek7.jpg" width="300" height="470"><img src="gomlek/gomlek8.jpg" width="294" height="470"> <img src="gomlek/gomlek9.jpg" width="300" height="470"></section>
+    <section>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+    </section>
+  <!-- end .content --></article>
+  <aside>
+          <form>
+Adın <input type="text" name="firstname"></br>
+Soyadın <input type="text" name="firstname"></br>
+Kullanıcı Adın <input type="text" name="firstname"></br>
+Parolan <input type="password" name="pwd"></br>
+<input type="submit" value="Giriş Yap">
+<input type="reset" value="Temizle">
+</form>
+</aside>
+  <footer>
+    <p>&nbsp;</p>
+</footer>
+  <!-- end .container --></div>
+<script type="text/javascript">
+var MenuBar1 = new Spry.Widget.MenuBar("MenuBar1", {imgDown:"SpryAssets/SpryMenuBarDownHover.gif", imgRight:"SpryAssets/SpryMenuBarRightHover.gif"});
+</script>
+</body>
+</html>
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Untitled Document</title>
+<style type="text/css">
+<!--
+body {
+	font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
+	background: #42413C;
+	margin: 0;
+	padding: 0;
+	color: #000;
+}
+/* ~~ Element/tag selectors ~~ */
+ul, ol, dl { /* Due to variations between browsers, it's best practices to zero padding and margin on lists. For consistency, you can either specify the amounts you want here, or on the list items (LI, DT, DD) they contain. Remember that what you do here will cascade to the .nav list unless you write a more specific selector. */
+	padding: 0;
+	margin: 0;
+}
+h1, h2, h3, h4, h5, h6, p {
+	margin-top: 0;	 /* removing the top margin gets around an issue where margins can escape from their containing block. The remaining bottom margin will hold it away from any elements that follow. */
+	padding-right: 15px;
+	padding-left: 15px; /* adding the padding to the sides of the elements within the blocks, instead of the block elements themselves, gets rid of any box model math. A nested block with side padding can also be used as an alternate method. */
+}
+a img { /* this selector removes the default blue border displayed in some browsers around an image when it is surrounded by a link */
+	border: none;
+}
+/* ~~ Styling for your site's links must remain in this order - including the group of selectors that create the hover effect. ~~ */
+a:link {
+	color: #000;
+	text-decoration: underline; /* unless you style your links to look extremely unique, it's best to provide underlines for quick visual identification */
+}
+a:visited {
+	color: #000;
+	text-decoration: underline;
+}
+a:hover, a:active, a:focus { /* this group of selectors will give a keyboard navigator the same hover experience as the person using a mouse. */
+	text-decoration: none;
+}
+/* ~~ This fixed width container surrounds all other blocks ~~ */
+.container {
+	width: 960px;
+	background: #FFFFFF;
+	margin: 0 auto; /* the auto value on the sides, coupled with the width, centers the layout */
+}
+/* ~~ The header is not given a width. It will extend the full width of your layout. ~~ */
+header {
+	background: #ADB96E;
+}
+/* ~~ These are the columns for the layout. ~~ 
+
+1) Padding is only placed on the top and/or bottom of the block elements. The elements within these blocks have padding on their sides. This saves you from any "box model math". Keep in mind, if you add any side padding or border to the block itself, it will be added to the width you define to create the *total* width. You may also choose to remove the padding on the element in the block element and place a second block element within it with no width and the padding necessary for your design.
+
+2) No margin has been given to the columns since they are all floated. If you must add margin, avoid placing it on the side you're floating toward (for example: a right margin on a block set to float right). Many times, padding can be used instead. For blocks where this rule must be broken, you should add a "display:inline" declaration to the block element's rule to tame a bug where some versions of Internet Explorer double the margin.
+
+3) Since classes can be used multiple times in a document (and an element can also have multiple classes applied), the columns have been assigned class names instead of IDs. For example, two sidebar blocks could be stacked if necessary. These can very easily be changed to IDs if that's your preference, as long as you'll only be using them once per document.
+
+4) If you prefer your nav on the left instead of the right, simply float these columns the opposite direction (all left instead of all right) and they'll render in reverse order. There's no need to move the blocks around in the HTML source.
+
+*/
+.sidebar1 {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding-bottom: 10px;
+}
+.content {
+	padding: 10px 0;
+	width: 600px;
+	float: left;
+}
+aside {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding: 10px 0;
+}
+
+/* ~~ This grouped selector gives the lists in the .content area space ~~ */
+.content ul, .content ol {
+	padding: 0 15px 15px 40px; /* this padding mirrors the right padding in the headings and paragraph rule above. Padding was placed on the bottom for space between other elements on the lists and on the left to create the indention. These may be adjusted as you wish. */
+}
+
+/* ~~ The navigation list styles (can be removed if you choose to use a premade flyout menu like Spry) ~~ */
+nav ul {
+	list-style: none; /* this removes the list marker */
+	border-top: 1px solid #666; /* this creates the top border for the links - all others are placed using a bottom border on the LI */
+	margin-bottom: 15px; /* this creates the space between the navigation on the content below */
+}
+nav ul li {
+	border-bottom: 1px solid #666; /* this creates the button separation */
+}
+nav ul a, nav ul a:visited { /* grouping these selectors makes sure that your links retain their button look even after being visited */
+	padding: 5px 5px 5px 15px;
+	display: block; /* this gives the link block properties causing it to fill the whole LI containing it. This causes the entire area to react to a mouse click. */
+	width: 160px;  /*this width makes the entire button clickable for IE6. If you don't need to support IE6, it can be removed. Calculate the proper width by subtracting the padding on this link from the width of your sidebar container. */
+	text-decoration: none;
+	background: #C6D580;
+}
+nav ul a:hover, nav ul a:active, nav ul a:focus { /* this changes the background and text color for both mouse and keyboard navigators */
+	background: #ADB96E;
+	color: #FFF;
+}
+
+/* ~~ The footer ~~ */
+footer {
+	padding: 10px 0;
+	background: #CCC49F;
+	position: relative;/* this gives IE6 hasLayout to properly clear */
+	clear: both; /* this clear property forces the .container to understand where the columns end and contain them */
+}
+/* ~~ Miscellaneous float/clear classes ~~ */
+.fltrt {  /* this class can be used to float an element right in your page. The floated element must precede the element it should be next to on the page. */
+	float: right;
+	margin-left: 8px;
+}
+.fltlft { /* this class can be used to float an element left in your page. The floated element must precede the element it should be next to on the page. */
+	float: left;
+	margin-right: 8px;
+}
+.clearfloat { /* this class can be placed on a <br /> or empty block element as the final element following the last floated block (within the .container) if the footer is removed or taken out of the .container */
+	clear:both;
+	height:0;
+	font-size: 1px;
+	line-height: 0px;
+}
+
+/*HTML 5 support - Sets new HTML 5 tags to display:block so browsers know how to render the tags properly. */
+header, section, footer, aside, nav, article, figure {
+	display: block;
+}
+-->
+</style><!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script src="SpryAssets/SpryMenuBar.js" type="text/javascript"></script>
+<link href="SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<div class="container">
+  <header>
+    <a href="#"><img src="logo.jpg" alt="Insert Logo Here" name="Insert_logo" width="960" height="150" id="Insert_logo" style="background: #C6D580; display:block;" /></a>
+  </header>
+<div class="sidebar1">
+    <nav>
+      <ul>
+        <li><a href="anasayfa.html">Anasayfa</a></li>
+        <li><a href="hakkimizda.html">Hakkımızda</a></li>
+        <li><a href="iletisim.html">İletişim</a></li>
+        <li><a href="uyelik.html">Üyelik</a></li>
+      </ul>
+    </nav>
+    <aside>
+      <img src="gifler/gif1.gif" width="180" height="380">
+</aside>
+  <!-- end .sidebar1 --></div>
+  <article class="content">
+    <section>
+<blockquote>
+<ul id="MenuBar1" class="MenuBarHorizontal">
+  <li><a class="MenuBarItemSubmenu" href="#">Erkek</a>
+    <ul>
+      <li><a href="mont.html">Mont</a></li>
+      <li><a href="hirka.html">H&#305;rka</a></li>
+      <li><a href="kazak.html">Kazak</a></li>
+      <li><a href="kot.html">Kot</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Bayan</a>
+    <ul>
+      <li><a href="etek.html">Etek</a></li>
+      <li><a href="swit.html">Swit</a></li>
+      <li><a href="badi.html">Badi</a></li>
+      <li><a href="pantolon.html">Pantolon</a></li>
+    </ul>
+  </li>
+  <li><a class="MenuBarItemSubmenu" href="#">&Ccedil;ocuk</a>
+    <ul>
+      <li><a href="gomlek.html">G&ouml;mlek</a>        </li>
+      <li><a href="yelek.html">Yelek</a></li>
+      <li><a href="tulum.html">Tulum</a></li>
+      <li><a href="tisort.html">Ti&#351;ort</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Aksesuar</a>
+    <ul>
+      <li><a href="saat.html">Saat</a></li>
+      <li><a href="sal.html">&#350;al</a></li>
+      <li><a href="taki.html">Tak&#305;</a></li>
+      <li><a href="atkibere.html">Atk&#305;/Bere</a></li>
+    </ul>
+  </li>
+</ul>
+<h2>&nbsp;</h2>
+</blockquote>
+<img src="hosgeldiniz.gif" width="600" height="200">
+      
+    </section>
+    <section></section>
+    <section>
+      <h1>HAKKIMIZDA ;</h1>
+      <h2>- 2017 yılında hizmetinize açılan mağazamız , yeni sezonda her türlü giyim ve aksesuara sahiptir. </h2>
+      <h2>- İnteret sitemiz üzerinden istediğiniz şekilde ürün sipariş edebilir, bize ulabilirsiniz. Bize rahat bi şekilde ulaşmak için, sitemizin " İLETİŞİM " bölümünden, iletişim bilgilerimize erişebilirsiniz. </h2>
+      <h2>- Mağazamızda bulunan ürünlerde, %30'a varan indirim bulunuyor. </h2>
+      <h2>- Sitemiz üzerinden sipariş ettiğiniz ürünlerde, ücretsiz kargo imkanı sağlıyoruz.</h2>
+    </section>
+  <!-- end .content --></article>
+  <aside>
+       <form>
+Adın <input type="text" name="firstname"></br>
+Soyadın <input type="text" name="firstname"></br>
+Kullanıcı Adın <input type="text" name="firstname"></br>
+Parolan <input type="password" name="pwd"></br>
+<input type="submit" value="Giriş Yap">
+<input type="reset" value="Temizle">
+</form>
+</aside>
+  <footer>
+    <p>&nbsp;</p>
+</footer>
+  <!-- end .container --></div>
+<script type="text/javascript">
+var MenuBar1 = new Spry.Widget.MenuBar("MenuBar1", {imgDown:"SpryAssets/SpryMenuBarDownHover.gif", imgRight:"SpryAssets/SpryMenuBarRightHover.gif"});
+</script>
+</body>
+</html>
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Untitled Document</title>
+<style type="text/css">
+<!--
+body {
+	font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
+	background: #42413C;
+	margin: 0;
+	padding: 0;
+	color: #000;
+}
+/* ~~ Element/tag selectors ~~ */
+ul, ol, dl { /* Due to variations between browsers, it's best practices to zero padding and margin on lists. For consistency, you can either specify the amounts you want here, or on the list items (LI, DT, DD) they contain. Remember that what you do here will cascade to the .nav list unless you write a more specific selector. */
+	padding: 0;
+	margin: 0;
+}
+h1, h2, h3, h4, h5, h6, p {
+	margin-top: 0;	 /* removing the top margin gets around an issue where margins can escape from their containing block. The remaining bottom margin will hold it away from any elements that follow. */
+	padding-right: 25px;
+	padding-left: 240px; /* adding the padding to the sides of the elements within the blocks, instead of the block elements themselves, gets rid of any box model math. A nested block with side padding can also be used as an alternate method. */
+}
+a img { /* this selector removes the default blue border displayed in some browsers around an image when it is surrounded by a link */
+	border: none;
+}
+/* ~~ Styling for your site's links must remain in this order - including the group of selectors that create the hover effect. ~~ */
+a:link {
+	color: #000;
+	text-decoration: underline; /* unless you style your links to look extremely unique, it's best to provide underlines for quick visual identification */
+}
+a:visited {
+	color: #000;
+	text-decoration: underline;
+}
+a:hover, a:active, a:focus { /* this group of selectors will give a keyboard navigator the same hover experience as the person using a mouse. */
+	text-decoration: none;
+}
+/* ~~ This fixed width container surrounds all other blocks ~~ */
+.container {
+	width: 960px;
+	background: #FFFFFF;
+	margin: 0 auto; /* the auto value on the sides, coupled with the width, centers the layout */
+}
+/* ~~ The header is not given a width. It will extend the full width of your layout. ~~ */
+header {
+	background: #ADB96E;
+}
+/* ~~ These are the columns for the layout. ~~ 
+
+1) Padding is only placed on the top and/or bottom of the block elements. The elements within these blocks have padding on their sides. This saves you from any "box model math". Keep in mind, if you add any side padding or border to the block itself, it will be added to the width you define to create the *total* width. You may also choose to remove the padding on the element in the block element and place a second block element within it with no width and the padding necessary for your design.
+
+2) No margin has been given to the columns since they are all floated. If you must add margin, avoid placing it on the side you're floating toward (for example: a right margin on a block set to float right). Many times, padding can be used instead. For blocks where this rule must be broken, you should add a "display:inline" declaration to the block element's rule to tame a bug where some versions of Internet Explorer double the margin.
+
+3) Since classes can be used multiple times in a document (and an element can also have multiple classes applied), the columns have been assigned class names instead of IDs. For example, two sidebar blocks could be stacked if necessary. These can very easily be changed to IDs if that's your preference, as long as you'll only be using them once per document.
+
+4) If you prefer your nav on the left instead of the right, simply float these columns the opposite direction (all left instead of all right) and they'll render in reverse order. There's no need to move the blocks around in the HTML source.
+
+*/
+.sidebar1 {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding-bottom: 10px;
+}
+.content {
+	padding: 10px 0;
+	width: 600px;
+	float: left;
+}
+aside {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding: 10px 0;
+}
+
+/* ~~ This grouped selector gives the lists in the .content area space ~~ */
+.content ul, .content ol {
+	padding: 0 15px 15px 40px; /* this padding mirrors the right padding in the headings and paragraph rule above. Padding was placed on the bottom for space between other elements on the lists and on the left to create the indention. These may be adjusted as you wish. */
+}
+
+/* ~~ The navigation list styles (can be removed if you choose to use a premade flyout menu like Spry) ~~ */
+nav ul {
+	list-style: none; /* this removes the list marker */
+	border-top: 1px solid #666; /* this creates the top border for the links - all others are placed using a bottom border on the LI */
+	margin-bottom: 15px; /* this creates the space between the navigation on the content below */
+}
+nav ul li {
+	border-bottom: 1px solid #666; /* this creates the button separation */
+}
+nav ul a, nav ul a:visited { /* grouping these selectors makes sure that your links retain their button look even after being visited */
+	padding: 5px 5px 5px 15px;
+	display: block; /* this gives the link block properties causing it to fill the whole LI containing it. This causes the entire area to react to a mouse click. */
+	width: 160px;  /*this width makes the entire button clickable for IE6. If you don't need to support IE6, it can be removed. Calculate the proper width by subtracting the padding on this link from the width of your sidebar container. */
+	text-decoration: none;
+	background: #C6D580;
+}
+nav ul a:hover, nav ul a:active, nav ul a:focus { /* this changes the background and text color for both mouse and keyboard navigators */
+	background: #ADB96E;
+	color: #FFF;
+}
+
+/* ~~ The footer ~~ */
+footer {
+	padding: 10px 0;
+	background: #CCC49F;
+	position: relative;/* this gives IE6 hasLayout to properly clear */
+	clear: both; /* this clear property forces the .container to understand where the columns end and contain them */
+}
+/* ~~ Miscellaneous float/clear classes ~~ */
+.fltrt {  /* this class can be used to float an element right in your page. The floated element must precede the element it should be next to on the page. */
+	float: right;
+	margin-left: 8px;
+}
+.fltlft { /* this class can be used to float an element left in your page. The floated element must precede the element it should be next to on the page. */
+	float: left;
+	margin-right: 8px;
+}
+.clearfloat { /* this class can be placed on a <br /> or empty block element as the final element following the last floated block (within the .container) if the footer is removed or taken out of the .container */
+	clear:both;
+	height:0;
+	font-size: 1px;
+	line-height: 0px;
+}
+
+/*HTML 5 support - Sets new HTML 5 tags to display:block so browsers know how to render the tags properly. */
+header, section, footer, aside, nav, article, figure {
+	display: block;
+}
+-->
+</style><!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script src="SpryAssets/SpryMenuBar.js" type="text/javascript"></script>
+<link href="SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<div class="container">
+  <header>
+    <a href="#"><img src="logo.jpg" alt="Insert Logo Here" name="Insert_logo" width="960" height="150" id="Insert_logo" style="background: #C6D580; display:block;" /></a>
+  </header>
+<div class="sidebar1">
+    <nav>
+      <ul>
+        <li><a href="anasayfa.html">Anasayfa</a></li>
+        <li><a href="hakkimizda.html">Hakkımızda</a></li>
+        <li><a href="iletisim.html">İletişim</a></li>
+        <li><a href="uyelik.html">Üyelik</a></li>
+      </ul>
+    </nav>
+  <img src="gifler/gif5.gif" width="180" height="240">  <!-- end .sidebar1 --></div>
+  <article class="content">
+    <section>
+<blockquote>
+<ul id="MenuBar1" class="MenuBarHorizontal">
+  <li><a class="MenuBarItemSubmenu" href="#">Erkek</a>
+    <ul>
+      <li><a href="mont.html">Mont</a></li>
+      <li><a href="hirka.html">H&#305;rka</a></li>
+      <li><a href="kazak.html">Kazak</a></li>
+      <li><a href="kot.html">Kot</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Bayan</a>
+    <ul>
+      <li><a href="etek.html">Etek</a></li>
+      <li><a href="swit.html">Swit</a></li>
+      <li><a href="badi.html">Badi</a></li>
+      <li><a href="pantolon.html">Pantolon</a></li>
+    </ul>
+  </li>
+  <li><a class="MenuBarItemSubmenu" href="#">&Ccedil;ocuk</a>
+    <ul>
+      <li><a href="gomlek.html">G&ouml;mlek</a>        </li>
+      <li><a href="yelek.html">Yelek</a></li>
+      <li><a href="tulum.html">Tulum</a></li>
+      <li><a href="tisort.html">Ti&#351;ort</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Aksesuar</a>
+    <ul>
+      <li><a href="saat.html">Saat</a></li>
+      <li><a href="sal.html">&#350;al</a></li>
+      <li><a href="taki.html">Tak&#305;</a></li>
+      <li><a href="atkibere.html">Atk&#305;/Bere</a></li>
+    </ul>
+  </li>
+</ul>
+<h2>&nbsp;</h2>
+</blockquote>
+<p>&nbsp;</p>
+      <h2>HIRKALAR</h2>
+    </section>
+    <section>
+     
+</section>
+    <section> 
+      <img src="hirka/hirka.jpg" width="294" height="470"> <img src="hirka/hirka1.jpg" width="300" height="470"> <img src="hirka/hirka4.jpg" width="294" height="470"> <img src="hirka/hirka3.jpg" width="300" height="470"><img src="hirka/hirka2.jpg" width="294" height="470"> <img src="hirka/hirka5.jpg" width="300" height="470"><img src="hirka/hirka6.jpg" width="294" height="470"> <img src="hirka/hirka7.jpg" width="300" height="470"> <img src="hirka/hirka8.jpg" width="294" height="470"> <img src="hirka/hirka9.jpg" width="300" height="470"></section>
+  <!-- end .content --></article>
+  <aside>
+         <form>
+Adın <input type="text" name="firstname"></br>
+Soyadın <input type="text" name="firstname"></br>
+Kullanıcı Adın <input type="text" name="firstname"></br>
+Parolan <input type="password" name="pwd"></br>
+<input type="submit" value="Giriş Yap">
+<input type="reset" value="Temizle">
+</form>
+  </aside>
+  <footer>
+    <p>&nbsp;</p>
+</footer>
+  <!-- end .container --></div>
+<script type="text/javascript">
+var MenuBar1 = new Spry.Widget.MenuBar("MenuBar1", {imgDown:"SpryAssets/SpryMenuBarDownHover.gif", imgRight:"SpryAssets/SpryMenuBarRightHover.gif"});
+</script>
+</body>
+</html>
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Untitled Document</title>
+<style type="text/css">
+<!--
+body {
+	font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
+	background: #42413C;
+	margin: 0;
+	padding: 0;
+	color: #000;
+}
+/* ~~ Element/tag selectors ~~ */
+ul, ol, dl { /* Due to variations between browsers, it's best practices to zero padding and margin on lists. For consistency, you can either specify the amounts you want here, or on the list items (LI, DT, DD) they contain. Remember that what you do here will cascade to the .nav list unless you write a more specific selector. */
+	padding: 0;
+	margin: 0;
+}
+h1, h2, h3, h4, h5, h6, p {
+	margin-top: 0;	 /* removing the top margin gets around an issue where margins can escape from their containing block. The remaining bottom margin will hold it away from any elements that follow. */
+	padding-right: 15px;
+	padding-left: 15px; /* adding the padding to the sides of the elements within the blocks, instead of the block elements themselves, gets rid of any box model math. A nested block with side padding can also be used as an alternate method. */
+}
+a img { /* this selector removes the default blue border displayed in some browsers around an image when it is surrounded by a link */
+	border: none;
+}
+/* ~~ Styling for your site's links must remain in this order - including the group of selectors that create the hover effect. ~~ */
+a:link {
+	color: #000;
+	text-decoration: underline; /* unless you style your links to look extremely unique, it's best to provide underlines for quick visual identification */
+}
+a:visited {
+	color: #000;
+	text-decoration: underline;
+}
+a:hover, a:active, a:focus { /* this group of selectors will give a keyboard navigator the same hover experience as the person using a mouse. */
+	text-decoration: none;
+}
+/* ~~ This fixed width container surrounds all other blocks ~~ */
+.container {
+	width: 960px;
+	background: #FFFFFF;
+	margin: 0 auto; /* the auto value on the sides, coupled with the width, centers the layout */
+}
+/* ~~ The header is not given a width. It will extend the full width of your layout. ~~ */
+header {
+	background: #ADB96E;
+}
+/* ~~ These are the columns for the layout. ~~ 
+
+1) Padding is only placed on the top and/or bottom of the block elements. The elements within these blocks have padding on their sides. This saves you from any "box model math". Keep in mind, if you add any side padding or border to the block itself, it will be added to the width you define to create the *total* width. You may also choose to remove the padding on the element in the block element and place a second block element within it with no width and the padding necessary for your design.
+
+2) No margin has been given to the columns since they are all floated. If you must add margin, avoid placing it on the side you're floating toward (for example: a right margin on a block set to float right). Many times, padding can be used instead. For blocks where this rule must be broken, you should add a "display:inline" declaration to the block element's rule to tame a bug where some versions of Internet Explorer double the margin.
+
+3) Since classes can be used multiple times in a document (and an element can also have multiple classes applied), the columns have been assigned class names instead of IDs. For example, two sidebar blocks could be stacked if necessary. These can very easily be changed to IDs if that's your preference, as long as you'll only be using them once per document.
+
+4) If you prefer your nav on the left instead of the right, simply float these columns the opposite direction (all left instead of all right) and they'll render in reverse order. There's no need to move the blocks around in the HTML source.
+
+*/
+.sidebar1 {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding-bottom: 10px;
+}
+.content {
+	padding: 10px 0;
+	width: 600px;
+	float: left;
+}
+aside {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding: 10px 0;
+}
+
+/* ~~ This grouped selector gives the lists in the .content area space ~~ */
+.content ul, .content ol {
+	padding: 0 15px 15px 40px; /* this padding mirrors the right padding in the headings and paragraph rule above. Padding was placed on the bottom for space between other elements on the lists and on the left to create the indention. These may be adjusted as you wish. */
+}
+
+/* ~~ The navigation list styles (can be removed if you choose to use a premade flyout menu like Spry) ~~ */
+nav ul {
+	list-style: none; /* this removes the list marker */
+	border-top: 1px solid #666; /* this creates the top border for the links - all others are placed using a bottom border on the LI */
+	margin-bottom: 15px; /* this creates the space between the navigation on the content below */
+}
+nav ul li {
+	border-bottom: 1px solid #666; /* this creates the button separation */
+}
+nav ul a, nav ul a:visited { /* grouping these selectors makes sure that your links retain their button look even after being visited */
+	padding: 5px 5px 5px 15px;
+	display: block; /* this gives the link block properties causing it to fill the whole LI containing it. This causes the entire area to react to a mouse click. */
+	width: 160px;  /*this width makes the entire button clickable for IE6. If you don't need to support IE6, it can be removed. Calculate the proper width by subtracting the padding on this link from the width of your sidebar container. */
+	text-decoration: none;
+	background: #C6D580;
+}
+nav ul a:hover, nav ul a:active, nav ul a:focus { /* this changes the background and text color for both mouse and keyboard navigators */
+	background: #ADB96E;
+	color: #FFF;
+}
+
+/* ~~ The footer ~~ */
+footer {
+	padding: 10px 0;
+	background: #CCC49F;
+	position: relative;/* this gives IE6 hasLayout to properly clear */
+	clear: both; /* this clear property forces the .container to understand where the columns end and contain them */
+}
+/* ~~ Miscellaneous float/clear classes ~~ */
+.fltrt {  /* this class can be used to float an element right in your page. The floated element must precede the element it should be next to on the page. */
+	float: right;
+	margin-left: 8px;
+}
+.fltlft { /* this class can be used to float an element left in your page. The floated element must precede the element it should be next to on the page. */
+	float: left;
+	margin-right: 8px;
+}
+.clearfloat { /* this class can be placed on a <br /> or empty block element as the final element following the last floated block (within the .container) if the footer is removed or taken out of the .container */
+	clear:both;
+	height:0;
+	font-size: 1px;
+	line-height: 0px;
+}
+
+/*HTML 5 support - Sets new HTML 5 tags to display:block so browsers know how to render the tags properly. */
+header, section, footer, aside, nav, article, figure {
+	display: block;
+}
+-->
+</style><!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script src="SpryAssets/SpryMenuBar.js" type="text/javascript"></script>
+<link href="SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<div class="container">
+  <header>
+    <a href="#"><img src="logo.jpg" alt="Insert Logo Here" name="Insert_logo" width="960" height="150" id="Insert_logo" style="background: #C6D580; display:block;" /></a>
+  </header>
+<div class="sidebar1">
+    <nav>
+      <ul>
+        <li><a href="anasayfa.html">Anasayfa</a></li>
+        <li><a href="hakkimizda.html">Hakkımızda</a></li>
+        <li><a href="iletisim.html">İletişim</a></li>
+        <li><a href="uyelik.html">Üyelik</a></li>
+      </ul>
+    </nav>
+    <aside>
+      <img src="gifler/gif7.gif" width="180" height="377">
+</aside>
+  <!-- end .sidebar1 --></div>
+  <article class="content">
+    <section>
+<blockquote>
+<ul id="MenuBar1" class="MenuBarHorizontal">
+  <li><a class="MenuBarItemSubmenu" href="#">Erkek</a>
+    <ul>
+      <li><a href="mont.html">Mont</a></li>
+      <li><a href="hirka.html">H&#305;rka</a></li>
+      <li><a href="kazak.html">Kazak</a></li>
+      <li><a href="kot.html">Kot</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Bayan</a>
+    <ul>
+      <li><a href="etek.html">Etek</a></li>
+      <li><a href="swit.html">Swit</a></li>
+      <li><a href="badi.html">Badi</a></li>
+      <li><a href="pantolon.html">Pantolon</a></li>
+    </ul>
+  </li>
+  <li><a class="MenuBarItemSubmenu" href="#">&Ccedil;ocuk</a>
+    <ul>
+      <li><a href="gomlek.html">G&ouml;mlek</a>        </li>
+      <li><a href="yelek.html">Yelek</a></li>
+      <li><a href="tulum.html">Tulum</a></li>
+      <li><a href="tisort.html">Ti&#351;ort</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Aksesuar</a>
+    <ul>
+      <li><a href="saat.html">Saat</a></li>
+      <li><a href="sal.html">&#350;al</a></li>
+      <li><a href="taki.html">Tak&#305;</a></li>
+      <li><a href="atkibere.html">Atk&#305;/Bere</a></li>
+    </ul>
+  </li>
+</ul>
+<h2>&nbsp;</h2>
+</blockquote>
+<img src="hosgeldiniz.gif" width="600" height="200">
+      
+    </section>
+    <section></section>
+    <section>
+      <h1> İLETİŞİM ;</h1>
+      
+      <h3> Bize Ulaşabileceğiniz E-posta Adresleri : </h3></br>
+      
+      <h4> simsek_collezione@hotmail.com</h4>
+      <h4> simsek_collezione2@hotmail.com</h4>
+      <h4> simsek_collezione3@hotmail.com</h4>
+      <h4> simsek_collezione4@hotmail.com</h4></br>
+      
+      <h3> Bize Ulaşabileceğiniz Facebook Adresleri : </h3>
+      
+      <h4> <a href="http://www.facebook.com/simsekcollezione">http://www.facebook.com/simsekcollezione</a></h4>
+      <h4> <a href="http://www.facebook.com/simsekcollezione2">http://www.facebook.com/simsekcollezione2</a></h4>
+      <h4> <a href="http://www.facebook.com/simsekcollezione3">http://www.facebook.com/simsekcollezione3</a></h4>
+      <h4> <a href="http://www.facebook.com/simsekcollezione4">http://www.facebook.com/simsekcollezione4</a></h4></br>
+      
+      <h3> Bize Ulaşabileceğiniz Telefon Numaraları : </h3>
+      
+      <h4> Avea : 05053259898 </h4>
+      <h4> Turkcell : 05303259898 </h4>
+      <h4> Vodafone : 0544259898 </h4>
+    </section>
+  <!-- end .content --></article>
+  <aside>
+       <form>
+Adın <input type="text" name="firstname"></br>
+Soyadın <input type="text" name="firstname"></br>
+Kullanıcı Adın <input type="text" name="firstname"></br>
+Parolan <input type="password" name="pwd"></br>
+<input type="submit" value="Giriş Yap">
+<input type="reset" value="Temizle">
+</form>
+</aside>
+  <footer>
+    <p>&nbsp;</p>
+</footer>
+  <!-- end .container --></div>
+<script type="text/javascript">
+var MenuBar1 = new Spry.Widget.MenuBar("MenuBar1", {imgDown:"SpryAssets/SpryMenuBarDownHover.gif", imgRight:"SpryAssets/SpryMenuBarRightHover.gif"});
+</script>
+</body>
+</html>
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Untitled Document</title>
+<style type="text/css">
+<!--
+body {
+	font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
+	background: #42413C;
+	margin: 0;
+	padding: 0;
+	color: #000;
+}
+/* ~~ Element/tag selectors ~~ */
+ul, ol, dl { /* Due to variations between browsers, it's best practices to zero padding and margin on lists. For consistency, you can either specify the amounts you want here, or on the list items (LI, DT, DD) they contain. Remember that what you do here will cascade to the .nav list unless you write a more specific selector. */
+	padding: 0;
+	margin: 0;
+}
+h1, h2, h3, h4, h5, h6, p {
+	margin-top: 0;	 /* removing the top margin gets around an issue where margins can escape from their containing block. The remaining bottom margin will hold it away from any elements that follow. */
+	padding-right: 25px;
+	padding-left: 240px; /* adding the padding to the sides of the elements within the blocks, instead of the block elements themselves, gets rid of any box model math. A nested block with side padding can also be used as an alternate method. */
+}
+a img { /* this selector removes the default blue border displayed in some browsers around an image when it is surrounded by a link */
+	border: none;
+}
+/* ~~ Styling for your site's links must remain in this order - including the group of selectors that create the hover effect. ~~ */
+a:link {
+	color: #000;
+	text-decoration: underline; /* unless you style your links to look extremely unique, it's best to provide underlines for quick visual identification */
+}
+a:visited {
+	color: #000;
+	text-decoration: underline;
+}
+a:hover, a:active, a:focus { /* this group of selectors will give a keyboard navigator the same hover experience as the person using a mouse. */
+	text-decoration: none;
+}
+/* ~~ This fixed width container surrounds all other blocks ~~ */
+.container {
+	width: 960px;
+	background: #FFFFFF;
+	margin: 0 auto; /* the auto value on the sides, coupled with the width, centers the layout */
+}
+/* ~~ The header is not given a width. It will extend the full width of your layout. ~~ */
+header {
+	background: #ADB96E;
+}
+/* ~~ These are the columns for the layout. ~~ 
+
+1) Padding is only placed on the top and/or bottom of the block elements. The elements within these blocks have padding on their sides. This saves you from any "box model math". Keep in mind, if you add any side padding or border to the block itself, it will be added to the width you define to create the *total* width. You may also choose to remove the padding on the element in the block element and place a second block element within it with no width and the padding necessary for your design.
+
+2) No margin has been given to the columns since they are all floated. If you must add margin, avoid placing it on the side you're floating toward (for example: a right margin on a block set to float right). Many times, padding can be used instead. For blocks where this rule must be broken, you should add a "display:inline" declaration to the block element's rule to tame a bug where some versions of Internet Explorer double the margin.
+
+3) Since classes can be used multiple times in a document (and an element can also have multiple classes applied), the columns have been assigned class names instead of IDs. For example, two sidebar blocks could be stacked if necessary. These can very easily be changed to IDs if that's your preference, as long as you'll only be using them once per document.
+
+4) If you prefer your nav on the left instead of the right, simply float these columns the opposite direction (all left instead of all right) and they'll render in reverse order. There's no need to move the blocks around in the HTML source.
+
+*/
+.sidebar1 {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding-bottom: 10px;
+}
+.content {
+	padding: 10px 0;
+	width: 600px;
+	float: left;
+}
+aside {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding: 10px 0;
+}
+
+/* ~~ This grouped selector gives the lists in the .content area space ~~ */
+.content ul, .content ol {
+	padding: 0 15px 15px 40px; /* this padding mirrors the right padding in the headings and paragraph rule above. Padding was placed on the bottom for space between other elements on the lists and on the left to create the indention. These may be adjusted as you wish. */
+}
+
+/* ~~ The navigation list styles (can be removed if you choose to use a premade flyout menu like Spry) ~~ */
+nav ul {
+	list-style: none; /* this removes the list marker */
+	border-top: 1px solid #666; /* this creates the top border for the links - all others are placed using a bottom border on the LI */
+	margin-bottom: 15px; /* this creates the space between the navigation on the content below */
+}
+nav ul li {
+	border-bottom: 1px solid #666; /* this creates the button separation */
+}
+nav ul a, nav ul a:visited { /* grouping these selectors makes sure that your links retain their button look even after being visited */
+	padding: 5px 5px 5px 15px;
+	display: block; /* this gives the link block properties causing it to fill the whole LI containing it. This causes the entire area to react to a mouse click. */
+	width: 160px;  /*this width makes the entire button clickable for IE6. If you don't need to support IE6, it can be removed. Calculate the proper width by subtracting the padding on this link from the width of your sidebar container. */
+	text-decoration: none;
+	background: #C6D580;
+}
+nav ul a:hover, nav ul a:active, nav ul a:focus { /* this changes the background and text color for both mouse and keyboard navigators */
+	background: #ADB96E;
+	color: #FFF;
+}
+
+/* ~~ The footer ~~ */
+footer {
+	padding: 10px 0;
+	background: #CCC49F;
+	position: relative;/* this gives IE6 hasLayout to properly clear */
+	clear: both; /* this clear property forces the .container to understand where the columns end and contain them */
+}
+/* ~~ Miscellaneous float/clear classes ~~ */
+.fltrt {  /* this class can be used to float an element right in your page. The floated element must precede the element it should be next to on the page. */
+	float: right;
+	margin-left: 8px;
+}
+.fltlft { /* this class can be used to float an element left in your page. The floated element must precede the element it should be next to on the page. */
+	float: left;
+	margin-right: 8px;
+}
+.clearfloat { /* this class can be placed on a <br /> or empty block element as the final element following the last floated block (within the .container) if the footer is removed or taken out of the .container */
+	clear:both;
+	height:0;
+	font-size: 1px;
+	line-height: 0px;
+}
+
+/*HTML 5 support - Sets new HTML 5 tags to display:block so browsers know how to render the tags properly. */
+header, section, footer, aside, nav, article, figure {
+	display: block;
+}
+-->
+</style><!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script src="SpryAssets/SpryMenuBar.js" type="text/javascript"></script>
+<link href="SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<div class="container">
+  <header>
+    <a href="#"><img src="logo.jpg" alt="Insert Logo Here" name="Insert_logo" width="960" height="150" id="Insert_logo" style="background: #C6D580; display:block;" /></a>
+  </header>
+<div class="sidebar1">
+    <nav>
+      <ul>
+        <li><a href="anasayfa.html">Anasayfa</a></li>
+        <li><a href="hakkimizda.html">Hakkımızda</a></li>
+        <li><a href="iletisim.html">İletişim</a></li>
+        <li><a href="uyelik.html">Üyelik</a></li>
+      </ul>
+    </nav>
+  <img src="gifler/gif5.gif" width="180" height="240">  <!-- end .sidebar1 --></div>
+  <article class="content">
+    <section>
+<blockquote>
+<ul id="MenuBar1" class="MenuBarHorizontal">
+  <li><a class="MenuBarItemSubmenu" href="#">Erkek</a>
+    <ul>
+      <li><a href="mont.html">Mont</a></li>
+      <li><a href="hirka.html">H&#305;rka</a></li>
+      <li><a href="kazak.html">Kazak</a></li>
+      <li><a href="kot.html">Kot</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Bayan</a>
+    <ul>
+      <li><a href="etek.html">Etek</a></li>
+      <li><a href="swit.html">Swit</a></li>
+      <li><a href="badi.html">Badi</a></li>
+      <li><a href="pantolon.html">Pantolon</a></li>
+    </ul>
+  </li>
+  <li><a class="MenuBarItemSubmenu" href="#">&Ccedil;ocuk</a>
+    <ul>
+      <li><a href="gomlek.html">G&ouml;mlek</a>        </li>
+      <li><a href="yelek.html">Yelek</a></li>
+      <li><a href="tulum.html">Tulum</a></li>
+      <li><a href="tisort.html">Ti&#351;ort</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Aksesuar</a>
+    <ul>
+      <li><a href="saat.html">Saat</a></li>
+      <li><a href="sal.html">&#350;al</a></li>
+      <li><a href="taki.html">Tak&#305;</a></li>
+      <li><a href="atkibere.html">Atk&#305;/Bere</a></li>
+    </ul>
+  </li>
+</ul>
+<h2>&nbsp;</h2>
+</blockquote>
+<p>&nbsp;</p>
+      <h2>KAZAKLAR</h2>
+    </section>
+    <section>
+    <img src="kazak/kazak.jpg" width="294" height="470"> <img src="kazak/kazak1.jpg" width="300" height="470"><img src="kazak/kazak2.jpg" width="294" height="470"> <img src="kazak/kazak3.jpg" width="300" height="470"><img src="kazak/kazak4.jpg" width="294" height="470"> <img src="kazak/kazak5.jpg" width="300" height="470"><img src="kazak/kazak7.jpg" width="294" height="470"> <img src="kazak/kazak6.jpg" width="300" height="470"><img src="kazak/kazak9.jpg" width="294" height="470"> <img src="kazak/kazak8.jpg" width="300" height="470"></section>
+    <section>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+    </section>
+  <!-- end .content --></article>
+  <aside>
+         <form>
+Adın <input type="text" name="firstname"></br>
+Soyadın <input type="text" name="firstname"></br>
+Kullanıcı Adın <input type="text" name="firstname"></br>
+Parolan <input type="password" name="pwd"></br>
+<input type="submit" value="Giriş Yap">
+<input type="reset" value="Temizle">
+</form>
+</aside>
+  <footer>
+    <p>&nbsp;</p>
+</footer>
+  <!-- end .container --></div>
+<script type="text/javascript">
+var MenuBar1 = new Spry.Widget.MenuBar("MenuBar1", {imgDown:"SpryAssets/SpryMenuBarDownHover.gif", imgRight:"SpryAssets/SpryMenuBarRightHover.gif"});
+</script>
+</body>
+</html>
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Untitled Document</title>
+<style type="text/css">
+<!--
+body {
+	font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
+	background: #42413C;
+	margin: 0;
+	padding: 0;
+	color: #000;
+}
+/* ~~ Element/tag selectors ~~ */
+ul, ol, dl { /* Due to variations between browsers, it's best practices to zero padding and margin on lists. For consistency, you can either specify the amounts you want here, or on the list items (LI, DT, DD) they contain. Remember that what you do here will cascade to the .nav list unless you write a more specific selector. */
+	padding: 0;
+	margin: 0;
+}
+h1, h2, h3, h4, h5, h6, p {
+	margin-top: 0;	 /* removing the top margin gets around an issue where margins can escape from their containing block. The remaining bottom margin will hold it away from any elements that follow. */
+	padding-right: 25px;
+	padding-left: 240px; /* adding the padding to the sides of the elements within the blocks, instead of the block elements themselves, gets rid of any box model math. A nested block with side padding can also be used as an alternate method. */
+}
+a img { /* this selector removes the default blue border displayed in some browsers around an image when it is surrounded by a link */
+	border: none;
+}
+/* ~~ Styling for your site's links must remain in this order - including the group of selectors that create the hover effect. ~~ */
+a:link {
+	color: #000;
+	text-decoration: underline; /* unless you style your links to look extremely unique, it's best to provide underlines for quick visual identification */
+}
+a:visited {
+	color: #000;
+	text-decoration: underline;
+}
+a:hover, a:active, a:focus { /* this group of selectors will give a keyboard navigator the same hover experience as the person using a mouse. */
+	text-decoration: none;
+}
+/* ~~ This fixed width container surrounds all other blocks ~~ */
+.container {
+	width: 960px;
+	background: #FFFFFF;
+	margin: 0 auto; /* the auto value on the sides, coupled with the width, centers the layout */
+}
+/* ~~ The header is not given a width. It will extend the full width of your layout. ~~ */
+header {
+	background: #ADB96E;
+}
+/* ~~ These are the columns for the layout. ~~ 
+
+1) Padding is only placed on the top and/or bottom of the block elements. The elements within these blocks have padding on their sides. This saves you from any "box model math". Keep in mind, if you add any side padding or border to the block itself, it will be added to the width you define to create the *total* width. You may also choose to remove the padding on the element in the block element and place a second block element within it with no width and the padding necessary for your design.
+
+2) No margin has been given to the columns since they are all floated. If you must add margin, avoid placing it on the side you're floating toward (for example: a right margin on a block set to float right). Many times, padding can be used instead. For blocks where this rule must be broken, you should add a "display:inline" declaration to the block element's rule to tame a bug where some versions of Internet Explorer double the margin.
+
+3) Since classes can be used multiple times in a document (and an element can also have multiple classes applied), the columns have been assigned class names instead of IDs. For example, two sidebar blocks could be stacked if necessary. These can very easily be changed to IDs if that's your preference, as long as you'll only be using them once per document.
+
+4) If you prefer your nav on the left instead of the right, simply float these columns the opposite direction (all left instead of all right) and they'll render in reverse order. There's no need to move the blocks around in the HTML source.
+
+*/
+.sidebar1 {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding-bottom: 10px;
+}
+.content {
+	padding: 10px 0;
+	width: 600px;
+	float: left;
+}
+aside {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding: 10px 0;
+}
+
+/* ~~ This grouped selector gives the lists in the .content area space ~~ */
+.content ul, .content ol {
+	padding: 0 15px 15px 40px; /* this padding mirrors the right padding in the headings and paragraph rule above. Padding was placed on the bottom for space between other elements on the lists and on the left to create the indention. These may be adjusted as you wish. */
+}
+
+/* ~~ The navigation list styles (can be removed if you choose to use a premade flyout menu like Spry) ~~ */
+nav ul {
+	list-style: none; /* this removes the list marker */
+	border-top: 1px solid #666; /* this creates the top border for the links - all others are placed using a bottom border on the LI */
+	margin-bottom: 15px; /* this creates the space between the navigation on the content below */
+}
+nav ul li {
+	border-bottom: 1px solid #666; /* this creates the button separation */
+}
+nav ul a, nav ul a:visited { /* grouping these selectors makes sure that your links retain their button look even after being visited */
+	padding: 5px 5px 5px 15px;
+	display: block; /* this gives the link block properties causing it to fill the whole LI containing it. This causes the entire area to react to a mouse click. */
+	width: 160px;  /*this width makes the entire button clickable for IE6. If you don't need to support IE6, it can be removed. Calculate the proper width by subtracting the padding on this link from the width of your sidebar container. */
+	text-decoration: none;
+	background: #C6D580;
+}
+nav ul a:hover, nav ul a:active, nav ul a:focus { /* this changes the background and text color for both mouse and keyboard navigators */
+	background: #ADB96E;
+	color: #FFF;
+}
+
+/* ~~ The footer ~~ */
+footer {
+	padding: 10px 0;
+	background: #CCC49F;
+	position: relative;/* this gives IE6 hasLayout to properly clear */
+	clear: both; /* this clear property forces the .container to understand where the columns end and contain them */
+}
+/* ~~ Miscellaneous float/clear classes ~~ */
+.fltrt {  /* this class can be used to float an element right in your page. The floated element must precede the element it should be next to on the page. */
+	float: right;
+	margin-left: 8px;
+}
+.fltlft { /* this class can be used to float an element left in your page. The floated element must precede the element it should be next to on the page. */
+	float: left;
+	margin-right: 8px;
+}
+.clearfloat { /* this class can be placed on a <br /> or empty block element as the final element following the last floated block (within the .container) if the footer is removed or taken out of the .container */
+	clear:both;
+	height:0;
+	font-size: 1px;
+	line-height: 0px;
+}
+
+/*HTML 5 support - Sets new HTML 5 tags to display:block so browsers know how to render the tags properly. */
+header, section, footer, aside, nav, article, figure {
+	display: block;
+}
+-->
+</style><!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script src="SpryAssets/SpryMenuBar.js" type="text/javascript"></script>
+<link href="SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<div class="container">
+  <header>
+    <a href="#"><img src="logo.jpg" alt="Insert Logo Here" name="Insert_logo" width="960" height="150" id="Insert_logo" style="background: #C6D580; display:block;" /></a>
+  </header>
+<div class="sidebar1">
+    <nav>
+      <ul>
+        <li><a href="anasayfa.html">Anasayfa</a></li>
+        <li><a href="hakkimizda.html">Hakkımızda</a></li>
+        <li><a href="iletisim.html">İletişim</a></li>
+        <li><a href="uyelik.html">Üyelik</a></li>
+      </ul>
+    </nav>
+  <img src="gifler/gif5.gif" width="180" height="240">  <!-- end .sidebar1 --></div>
+  <article class="content">
+    <section>
+<blockquote>
+<ul id="MenuBar1" class="MenuBarHorizontal">
+  <li><a class="MenuBarItemSubmenu" href="#">Erkek</a>
+    <ul>
+      <li><a href="mont.html">Mont</a></li>
+      <li><a href="hirka.html">H&#305;rka</a></li>
+      <li><a href="kazak.html">Kazak</a></li>
+      <li><a href="kot.html">Kot</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Bayan</a>
+    <ul>
+      <li><a href="etek.html">Etek</a></li>
+      <li><a href="swit.html">Swit</a></li>
+      <li><a href="badi.html">Badi</a></li>
+      <li><a href="pantolon.html">Pantolon</a></li>
+    </ul>
+  </li>
+  <li><a class="MenuBarItemSubmenu" href="#">&Ccedil;ocuk</a>
+    <ul>
+      <li><a href="gomlek.html">G&ouml;mlek</a>        </li>
+      <li><a href="yelek.html">Yelek</a></li>
+      <li><a href="tulum.html">Tulum</a></li>
+      <li><a href="tisort.html">Ti&#351;ort</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Aksesuar</a>
+    <ul>
+      <li><a href="saat.html">Saat</a></li>
+      <li><a href="sal.html">&#350;al</a></li>
+      <li><a href="taki.html">Tak&#305;</a></li>
+      <li><a href="atkibere.html">Atk&#305;/Bere</a></li>
+    </ul>
+  </li>
+</ul>
+<h2>&nbsp;</h2>
+<p>&nbsp;</p>
+</blockquote>
+<h2>KOTLAR</h2>
+    </section>
+    <section>
+    <img src="kot/kot.jpg" width="294" height="470"> <img src="kot/kot1.jpg" width="300" height="470"><img src="kot/kot2.jpg" width="294" height="470"> <img src="kot/kot3.jpg" width="300" height="470"><img src="kot/kot4.jpg" width="294" height="470"> <img src="kot/kot5.jpg" width="300" height="470"><img src="kot/kot6.jpg" width="294" height="470"> <img src="kot/kot7.jpg" width="300" height="470"><img src="kot/kot8.jpg" width="294" height="470"> <img src="kot/kot9.jpg" width="300" height="470"></section>
+    <section>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+    </section>
+  <!-- end .content --></article>
+  <aside>
+          <form>
+Adın <input type="text" name="firstname"></br>
+Soyadın <input type="text" name="firstname"></br>
+Kullanıcı Adın <input type="text" name="firstname"></br>
+Parolan <input type="password" name="pwd"></br>
+<input type="submit" value="Giriş Yap">
+<input type="reset" value="Temizle">
+</form>
+</aside>
+  <footer>
+    <p>&nbsp;</p>
+</footer>
+  <!-- end .container --></div>
+<script type="text/javascript">
+var MenuBar1 = new Spry.Widget.MenuBar("MenuBar1", {imgDown:"SpryAssets/SpryMenuBarDownHover.gif", imgRight:"SpryAssets/SpryMenuBarRightHover.gif"});
+</script>
+</body>
+</html>
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Untitled Document</title>
+<style type="text/css">
+<!--
+body {
+	font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
+	background: #42413C;
+	margin: 0;
+	padding: 0;
+	color: #000;
+}
+/* ~~ Element/tag selectors ~~ */
+ul, ol, dl { /* Due to variations between browsers, it's best practices to zero padding and margin on lists. For consistency, you can either specify the amounts you want here, or on the list items (LI, DT, DD) they contain. Remember that what you do here will cascade to the .nav list unless you write a more specific selector. */
+	padding: 0;
+	margin: 0;
+}
+h1, h2, h3, h4, h5, h6, p {
+	margin-top: 0px;	 /* removing the top margin gets around an issue where margins can escape from their containing block. The remaining bottom margin will hold it away from any elements that follow. */
+	padding-right: 25px;
+	padding-left: 240px; /* adding the padding to the sides of the elements within the blocks, instead of the block elements themselves, gets rid of any box model math. A nested block with side padding can also be used as an alternate method. */
+}
+a img { /* this selector removes the default blue border displayed in some browsers around an image when it is surrounded by a link */
+	border: none;
+}
+/* ~~ Styling for your site's links must remain in this order - including the group of selectors that create the hover effect. ~~ */
+a:link {
+	color: #000;
+	text-decoration: underline; /* unless you style your links to look extremely unique, it's best to provide underlines for quick visual identification */
+}
+a:visited {
+	color: #000;
+	text-decoration: underline;
+}
+a:hover, a:active, a:focus { /* this group of selectors will give a keyboard navigator the same hover experience as the person using a mouse. */
+	text-decoration: none;
+}
+/* ~~ This fixed width container surrounds all other blocks ~~ */
+.container {
+	width: 960px;
+	background: #FFFFFF;
+	margin: 0 auto; /* the auto value on the sides, coupled with the width, centers the layout */
+}
+/* ~~ The header is not given a width. It will extend the full width of your layout. ~~ */
+header {
+	background: #ADB96E;
+}
+/* ~~ These are the columns for the layout. ~~ 
+
+1) Padding is only placed on the top and/or bottom of the block elements. The elements within these blocks have padding on their sides. This saves you from any "box model math". Keep in mind, if you add any side padding or border to the block itself, it will be added to the width you define to create the *total* width. You may also choose to remove the padding on the element in the block element and place a second block element within it with no width and the padding necessary for your design.
+
+2) No margin has been given to the columns since they are all floated. If you must add margin, avoid placing it on the side you're floating toward (for example: a right margin on a block set to float right). Many times, padding can be used instead. For blocks where this rule must be broken, you should add a "display:inline" declaration to the block element's rule to tame a bug where some versions of Internet Explorer double the margin.
+
+3) Since classes can be used multiple times in a document (and an element can also have multiple classes applied), the columns have been assigned class names instead of IDs. For example, two sidebar blocks could be stacked if necessary. These can very easily be changed to IDs if that's your preference, as long as you'll only be using them once per document.
+
+4) If you prefer your nav on the left instead of the right, simply float these columns the opposite direction (all left instead of all right) and they'll render in reverse order. There's no need to move the blocks around in the HTML source.
+
+*/
+.sidebar1 {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding-bottom: 10px;
+}
+.content {
+	padding: 10px 0;
+	width: 600px;
+	float: left;
+}
+aside {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding: 10px 0;
+}
+
+/* ~~ This grouped selector gives the lists in the .content area space ~~ */
+.content ul, .content ol {
+	padding: 0 15px 15px 40px; /* this padding mirrors the right padding in the headings and paragraph rule above. Padding was placed on the bottom for space between other elements on the lists and on the left to create the indention. These may be adjusted as you wish. */
+}
+
+/* ~~ The navigation list styles (can be removed if you choose to use a premade flyout menu like Spry) ~~ */
+nav ul {
+	list-style: none; /* this removes the list marker */
+	border-top: 1px solid #666; /* this creates the top border for the links - all others are placed using a bottom border on the LI */
+	margin-bottom: 15px; /* this creates the space between the navigation on the content below */
+}
+nav ul li {
+	border-bottom: 1px solid #666; /* this creates the button separation */
+}
+nav ul a, nav ul a:visited { /* grouping these selectors makes sure that your links retain their button look even after being visited */
+	padding: 5px 5px 5px 15px;
+	display: block; /* this gives the link block properties causing it to fill the whole LI containing it. This causes the entire area to react to a mouse click. */
+	width: 160px;  /*this width makes the entire button clickable for IE6. If you don't need to support IE6, it can be removed. Calculate the proper width by subtracting the padding on this link from the width of your sidebar container. */
+	text-decoration: none;
+	background: #C6D580;
+}
+nav ul a:hover, nav ul a:active, nav ul a:focus { /* this changes the background and text color for both mouse and keyboard navigators */
+	background: #ADB96E;
+	color: #FFF;
+}
+
+/* ~~ The footer ~~ */
+footer {
+	padding: 10px 0;
+	background: #CCC49F;
+	position: relative;/* this gives IE6 hasLayout to properly clear */
+	clear: both; /* this clear property forces the .container to understand where the columns end and contain them */
+}
+/* ~~ Miscellaneous float/clear classes ~~ */
+.fltrt {  /* this class can be used to float an element right in your page. The floated element must precede the element it should be next to on the page. */
+	float: right;
+	margin-left: 8px;
+}
+.fltlft { /* this class can be used to float an element left in your page. The floated element must precede the element it should be next to on the page. */
+	float: left;
+	margin-right: 8px;
+}
+.clearfloat { /* this class can be placed on a <br /> or empty block element as the final element following the last floated block (within the .container) if the footer is removed or taken out of the .container */
+	clear:both;
+	height:0px;
+	font-size: 1px;
+	line-height: 0px;
+}
+
+/*HTML 5 support - Sets new HTML 5 tags to display:block so browsers know how to render the tags properly. */
+header, section, footer, aside, nav, article, figure {
+	display: block;
+}
+-->
+</style><!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script src="SpryAssets/SpryMenuBar.js" type="text/javascript"></script>
+<link href="SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<div class="container">
+  <header>
+    <a href="#"><img src="logo.jpg" alt="Insert Logo Here" name="Insert_logo" width="960" height="150" id="Insert_logo" style="background: #C6D580; display:block;" /></a>
+  </header>
+<div class="sidebar1">
+    <nav>
+      <ul>
+        <li><a href="anasayfa.html">Anasayfa</a></li>
+        <li><a href="hakkimizda.html">Hakkımızda</a></li>
+        <li><a href="iletisim.html">İletişim</a></li>
+        <li><a href="uyelik.html">Üyelik</a></li>
+      </ul>
+    </nav>
+  <img src="gifler/gif5.gif" width="180" height="240">  <!-- end .sidebar1 --></div>
+  <article class="content">
+    <section>
+<blockquote>
+<ul id="MenuBar1" class="MenuBarHorizontal">
+  <li><a class="MenuBarItemSubmenu" href="#">Erkek</a>
+    <ul>
+      <li><a href="mont.html">Mont</a></li>
+      <li><a href="hirka.html">H&#305;rka</a></li>
+      <li><a href="kazak.html">Kazak</a></li>
+      <li><a href="kot.html">Kot</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Bayan</a>
+    <ul>
+      <li><a href="etek.html">Etek</a></li>
+      <li><a href="swit.html">Swit</a></li>
+      <li><a href="badi.html">Badi</a></li>
+      <li><a href="pantolon.html">Pantolon</a></li>
+    </ul>
+  </li>
+  <li><a class="MenuBarItemSubmenu" href="#">&Ccedil;ocuk</a>
+    <ul>
+      <li><a href="gomlek.html">G&ouml;mlek</a>        </li>
+      <li><a href="yelek.html">Yelek</a></li>
+      <li><a href="tulum.html">Tulum</a></li>
+      <li><a href="tisort.html">Ti&#351;ort</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Aksesuar</a>
+    <ul>
+      <li><a href="saat.html">Saat</a></li>
+      <li><a href="sal.html">&#350;al</a></li>
+      <li><a href="taki.html">Tak&#305;</a></li>
+      <li><a href="atkibere.html">Atk&#305;/Bere</a></li>
+    </ul>
+  </li>
+</ul>
+<h2>&nbsp;</h2>
+</blockquote>
+<p>&nbsp;</p>
+      <h2><strong>MONTLAR</strong></h2>
+    </section>
+    <section></section>
+    <section>
+    <img src="mont/mont1.jpg" width="280" height="470">  <img src="mont/mont2.jpg" width="280" height="483"><img src="mont/mon4.jpg" width="280" height="470"> <img src="mont/mont8.jpg" width="280" height="470"><img src="mont/mont5.jpg" width="280" height="470"> <img src="mont/mont10.jpg" width="280" height="470"><img src="mont/mont3.jpg" width="280" height="470"> <img src="mont/mont9.jpg" width="280" height="470"><img src="mont/mont7.jpg" width="280" height="470"> <img src="mont/mont6.jpg" width="280" height="470"></section>
+  <!-- end .content --></article>
+  <aside> 
+          <form>
+Adın <input type="text" name="firstname"></br>
+Soyadın <input type="text" name="firstname"></br>
+Kullanıcı Adın <input type="text" name="firstname"></br>
+Parolan <input type="password" name="pwd"></br>
+<input type="submit" value="Giriş Yap">
+<input type="reset" value="Temizle">
+</form>
+  </aside>
+  <footer>
+    <p>&nbsp;</p>
+</footer>
+  <!-- end .container --></div>
+<script type="text/javascript">
+var MenuBar1 = new Spry.Widget.MenuBar("MenuBar1", {imgDown:"SpryAssets/SpryMenuBarDownHover.gif", imgRight:"SpryAssets/SpryMenuBarRightHover.gif"});
+</script>
+</body>
+</html>
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Untitled Document</title>
+<style type="text/css">
+<!--
+body {
+	font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
+	background: #42413C;
+	margin: 0;
+	padding: 0;
+	color: #000;
+}
+/* ~~ Element/tag selectors ~~ */
+ul, ol, dl { /* Due to variations between browsers, it's best practices to zero padding and margin on lists. For consistency, you can either specify the amounts you want here, or on the list items (LI, DT, DD) they contain. Remember that what you do here will cascade to the .nav list unless you write a more specific selector. */
+	padding: 0;
+	margin: 0;
+}
+h1, h2, h3, h4, h5, h6, p {
+	margin-top: 0;	 /* removing the top margin gets around an issue where margins can escape from their containing block. The remaining bottom margin will hold it away from any elements that follow. */
+	padding-right: 25px;
+	padding-left: 200px; /* adding the padding to the sides of the elements within the blocks, instead of the block elements themselves, gets rid of any box model math. A nested block with side padding can also be used as an alternate method. */
+}
+a img { /* this selector removes the default blue border displayed in some browsers around an image when it is surrounded by a link */
+	border: none;
+}
+/* ~~ Styling for your site's links must remain in this order - including the group of selectors that create the hover effect. ~~ */
+a:link {
+	color: #000;
+	text-decoration: underline; /* unless you style your links to look extremely unique, it's best to provide underlines for quick visual identification */
+}
+a:visited {
+	color: #000;
+	text-decoration: underline;
+}
+a:hover, a:active, a:focus { /* this group of selectors will give a keyboard navigator the same hover experience as the person using a mouse. */
+	text-decoration: none;
+}
+/* ~~ This fixed width container surrounds all other blocks ~~ */
+.container {
+	width: 960px;
+	background: #FFFFFF;
+	margin: 0 auto; /* the auto value on the sides, coupled with the width, centers the layout */
+}
+/* ~~ The header is not given a width. It will extend the full width of your layout. ~~ */
+header {
+	background: #ADB96E;
+}
+/* ~~ These are the columns for the layout. ~~ 
+
+1) Padding is only placed on the top and/or bottom of the block elements. The elements within these blocks have padding on their sides. This saves you from any "box model math". Keep in mind, if you add any side padding or border to the block itself, it will be added to the width you define to create the *total* width. You may also choose to remove the padding on the element in the block element and place a second block element within it with no width and the padding necessary for your design.
+
+2) No margin has been given to the columns since they are all floated. If you must add margin, avoid placing it on the side you're floating toward (for example: a right margin on a block set to float right). Many times, padding can be used instead. For blocks where this rule must be broken, you should add a "display:inline" declaration to the block element's rule to tame a bug where some versions of Internet Explorer double the margin.
+
+3) Since classes can be used multiple times in a document (and an element can also have multiple classes applied), the columns have been assigned class names instead of IDs. For example, two sidebar blocks could be stacked if necessary. These can very easily be changed to IDs if that's your preference, as long as you'll only be using them once per document.
+
+4) If you prefer your nav on the left instead of the right, simply float these columns the opposite direction (all left instead of all right) and they'll render in reverse order. There's no need to move the blocks around in the HTML source.
+
+*/
+.sidebar1 {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding-bottom: 10px;
+}
+.content {
+	padding: 10px 0;
+	width: 600px;
+	float: left;
+}
+aside {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding: 10px 0;
+}
+
+/* ~~ This grouped selector gives the lists in the .content area space ~~ */
+.content ul, .content ol {
+	padding: 0 15px 15px 40px; /* this padding mirrors the right padding in the headings and paragraph rule above. Padding was placed on the bottom for space between other elements on the lists and on the left to create the indention. These may be adjusted as you wish. */
+}
+
+/* ~~ The navigation list styles (can be removed if you choose to use a premade flyout menu like Spry) ~~ */
+nav ul {
+	list-style: none; /* this removes the list marker */
+	border-top: 1px solid #666; /* this creates the top border for the links - all others are placed using a bottom border on the LI */
+	margin-bottom: 15px; /* this creates the space between the navigation on the content below */
+}
+nav ul li {
+	border-bottom: 1px solid #666; /* this creates the button separation */
+}
+nav ul a, nav ul a:visited { /* grouping these selectors makes sure that your links retain their button look even after being visited */
+	padding: 5px 5px 5px 15px;
+	display: block; /* this gives the link block properties causing it to fill the whole LI containing it. This causes the entire area to react to a mouse click. */
+	width: 160px;  /*this width makes the entire button clickable for IE6. If you don't need to support IE6, it can be removed. Calculate the proper width by subtracting the padding on this link from the width of your sidebar container. */
+	text-decoration: none;
+	background: #C6D580;
+}
+nav ul a:hover, nav ul a:active, nav ul a:focus { /* this changes the background and text color for both mouse and keyboard navigators */
+	background: #ADB96E;
+	color: #FFF;
+}
+
+/* ~~ The footer ~~ */
+footer {
+	padding: 10px 0;
+	background: #CCC49F;
+	position: relative;/* this gives IE6 hasLayout to properly clear */
+	clear: both; /* this clear property forces the .container to understand where the columns end and contain them */
+}
+/* ~~ Miscellaneous float/clear classes ~~ */
+.fltrt {  /* this class can be used to float an element right in your page. The floated element must precede the element it should be next to on the page. */
+	float: right;
+	margin-left: 8px;
+}
+.fltlft { /* this class can be used to float an element left in your page. The floated element must precede the element it should be next to on the page. */
+	float: left;
+	margin-right: 8px;
+}
+.clearfloat { /* this class can be placed on a <br /> or empty block element as the final element following the last floated block (within the .container) if the footer is removed or taken out of the .container */
+	clear:both;
+	height:0;
+	font-size: 1px;
+	line-height: 0px;
+}
+
+/*HTML 5 support - Sets new HTML 5 tags to display:block so browsers know how to render the tags properly. */
+header, section, footer, aside, nav, article, figure {
+	display: block;
+}
+-->
+</style><!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script src="SpryAssets/SpryMenuBar.js" type="text/javascript"></script>
+<link href="SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<div class="container">
+  <header>
+    <a href="#"><img src="logo.jpg" alt="Insert Logo Here" name="Insert_logo" width="960" height="150" id="Insert_logo" style="background: #C6D580; display:block;" /></a>
+  </header>
+<div class="sidebar1">
+    <nav>
+      <ul>
+        <li><a href="anasayfa.html">Anasayfa</a></li>
+        <li><a href="hakkimizda.html">Hakkımızda</a></li>
+        <li><a href="iletisim.html">İletişim</a></li>
+        <li><a href="uyelik.html">Üyelik</a></li>
+      </ul>
+    </nav>
+  <img src="gifler/gif5.gif" width="180" height="240">  <!-- end .sidebar1 --></div>
+  <article class="content">
+    <section>
+<blockquote>
+<ul id="MenuBar1" class="MenuBarHorizontal">
+  <li><a class="MenuBarItemSubmenu" href="#">Erkek</a>
+    <ul>
+      <li><a href="mont.html">Mont</a></li>
+      <li><a href="hirka.html">H&#305;rka</a></li>
+      <li><a href="kazak.html">Kazak</a></li>
+      <li><a href="kot.html">Kot</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Bayan</a>
+    <ul>
+      <li><a href="etek.html">Etek</a></li>
+      <li><a href="swit.html">Swit</a></li>
+      <li><a href="badi.html">Badi</a></li>
+      <li><a href="pantolon.html">Pantolon</a></li>
+    </ul>
+  </li>
+  <li><a class="MenuBarItemSubmenu" href="#">&Ccedil;ocuk</a>
+    <ul>
+      <li><a href="gomlek.html">G&ouml;mlek</a>        </li>
+      <li><a href="yelek.html">Yelek</a></li>
+      <li><a href="tulum.html">Tulum</a></li>
+      <li><a href="tisort.html">Ti&#351;ort</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Aksesuar</a>
+    <ul>
+      <li><a href="saat.html">Saat</a></li>
+      <li><a href="sal.html">&#350;al</a></li>
+      <li><a href="taki.html">Tak&#305;</a></li>
+      <li><a href="atkibere.html">Atk&#305;/Bere</a></li>
+    </ul>
+  </li>
+</ul>
+<h2>&nbsp;</h2>
+</blockquote>
+<p>&nbsp;</p>
+      <h2>PANTOLONLAR</h2>
+    </section>
+    <section>
+    <img src="pantolon/pantolon.jpg" width="294" height="470"> <img src="pantolon/pantolon1.jpg" width="300" height="470"><img src="pantolon/pantolon2.jpg" width="294" height="470"> <img src="pantolon/pantolon3.jpg" width="300" height="470"><img src="pantolon/pantolon4.jpg" width="294" height="470"> <img src="pantolon/pantolon5.jpg" width="300" height="470"><img src="pantolon/pantolon6.jpg" width="294" height="470"> <img src="pantolon/pantolon7.jpg" width="300" height="470"><img src="pantolon/pantolon8.jpg" width="294" height="470"> <img src="pantolon/pantolon9.JPG" width="300" height="470"></section>
+    <section>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+    </section>
+  <!-- end .content --></article>
+  <aside>
+          <form>
+Adın <input type="text" name="firstname"></br>
+Soyadın <input type="text" name="firstname"></br>
+Kullanıcı Adın <input type="text" name="firstname"></br>
+Parolan <input type="password" name="pwd"></br>
+<input type="submit" value="Giriş Yap">
+<input type="reset" value="Temizle">
+</form>
+</aside>
+  <footer>
+    <p>&nbsp;</p>
+</footer>
+  <!-- end .container --></div>
+<script type="text/javascript">
+var MenuBar1 = new Spry.Widget.MenuBar("MenuBar1", {imgDown:"SpryAssets/SpryMenuBarDownHover.gif", imgRight:"SpryAssets/SpryMenuBarRightHover.gif"});
+</script>
+</body>
+</html>
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Untitled Document</title>
+<style type="text/css">
+<!--
+body {
+	font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
+	background: #42413C;
+	margin: 0;
+	padding: 0;
+	color: #000;
+}
+/* ~~ Element/tag selectors ~~ */
+ul, ol, dl { /* Due to variations between browsers, it's best practices to zero padding and margin on lists. For consistency, you can either specify the amounts you want here, or on the list items (LI, DT, DD) they contain. Remember that what you do here will cascade to the .nav list unless you write a more specific selector. */
+	padding: 0;
+	margin: 0;
+}
+h1, h2, h3, h4, h5, h6, p {
+	margin-top: 0;	 /* removing the top margin gets around an issue where margins can escape from their containing block. The remaining bottom margin will hold it away from any elements that follow. */
+	padding-right: 25px;
+	padding-left: 250px; /* adding the padding to the sides of the elements within the blocks, instead of the block elements themselves, gets rid of any box model math. A nested block with side padding can also be used as an alternate method. */
+}
+a img { /* this selector removes the default blue border displayed in some browsers around an image when it is surrounded by a link */
+	border: none;
+}
+/* ~~ Styling for your site's links must remain in this order - including the group of selectors that create the hover effect. ~~ */
+a:link {
+	color: #000;
+	text-decoration: underline; /* unless you style your links to look extremely unique, it's best to provide underlines for quick visual identification */
+}
+a:visited {
+	color: #000;
+	text-decoration: underline;
+}
+a:hover, a:active, a:focus { /* this group of selectors will give a keyboard navigator the same hover experience as the person using a mouse. */
+	text-decoration: none;
+}
+/* ~~ This fixed width container surrounds all other blocks ~~ */
+.container {
+	width: 960px;
+	background: #FFFFFF;
+	margin: 0 auto; /* the auto value on the sides, coupled with the width, centers the layout */
+}
+/* ~~ The header is not given a width. It will extend the full width of your layout. ~~ */
+header {
+	background: #ADB96E;
+}
+/* ~~ These are the columns for the layout. ~~ 
+
+1) Padding is only placed on the top and/or bottom of the block elements. The elements within these blocks have padding on their sides. This saves you from any "box model math". Keep in mind, if you add any side padding or border to the block itself, it will be added to the width you define to create the *total* width. You may also choose to remove the padding on the element in the block element and place a second block element within it with no width and the padding necessary for your design.
+
+2) No margin has been given to the columns since they are all floated. If you must add margin, avoid placing it on the side you're floating toward (for example: a right margin on a block set to float right). Many times, padding can be used instead. For blocks where this rule must be broken, you should add a "display:inline" declaration to the block element's rule to tame a bug where some versions of Internet Explorer double the margin.
+
+3) Since classes can be used multiple times in a document (and an element can also have multiple classes applied), the columns have been assigned class names instead of IDs. For example, two sidebar blocks could be stacked if necessary. These can very easily be changed to IDs if that's your preference, as long as you'll only be using them once per document.
+
+4) If you prefer your nav on the left instead of the right, simply float these columns the opposite direction (all left instead of all right) and they'll render in reverse order. There's no need to move the blocks around in the HTML source.
+
+*/
+.sidebar1 {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding-bottom: 10px;
+}
+.content {
+	padding: 10px 0;
+	width: 600px;
+	float: left;
+}
+aside {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding: 10px 0;
+}
+
+/* ~~ This grouped selector gives the lists in the .content area space ~~ */
+.content ul, .content ol {
+	padding: 0 15px 15px 40px; /* this padding mirrors the right padding in the headings and paragraph rule above. Padding was placed on the bottom for space between other elements on the lists and on the left to create the indention. These may be adjusted as you wish. */
+}
+
+/* ~~ The navigation list styles (can be removed if you choose to use a premade flyout menu like Spry) ~~ */
+nav ul {
+	list-style: none; /* this removes the list marker */
+	border-top: 1px solid #666; /* this creates the top border for the links - all others are placed using a bottom border on the LI */
+	margin-bottom: 15px; /* this creates the space between the navigation on the content below */
+}
+nav ul li {
+	border-bottom: 1px solid #666; /* this creates the button separation */
+}
+nav ul a, nav ul a:visited { /* grouping these selectors makes sure that your links retain their button look even after being visited */
+	padding: 5px 5px 5px 15px;
+	display: block; /* this gives the link block properties causing it to fill the whole LI containing it. This causes the entire area to react to a mouse click. */
+	width: 160px;  /*this width makes the entire button clickable for IE6. If you don't need to support IE6, it can be removed. Calculate the proper width by subtracting the padding on this link from the width of your sidebar container. */
+	text-decoration: none;
+	background: #C6D580;
+}
+nav ul a:hover, nav ul a:active, nav ul a:focus { /* this changes the background and text color for both mouse and keyboard navigators */
+	background: #ADB96E;
+	color: #FFF;
+}
+
+/* ~~ The footer ~~ */
+footer {
+	padding: 10px 0;
+	background: #CCC49F;
+	position: relative;/* this gives IE6 hasLayout to properly clear */
+	clear: both; /* this clear property forces the .container to understand where the columns end and contain them */
+}
+/* ~~ Miscellaneous float/clear classes ~~ */
+.fltrt {  /* this class can be used to float an element right in your page. The floated element must precede the element it should be next to on the page. */
+	float: right;
+	margin-left: 8px;
+}
+.fltlft { /* this class can be used to float an element left in your page. The floated element must precede the element it should be next to on the page. */
+	float: left;
+	margin-right: 8px;
+}
+.clearfloat { /* this class can be placed on a <br /> or empty block element as the final element following the last floated block (within the .container) if the footer is removed or taken out of the .container */
+	clear:both;
+	height:0;
+	font-size: 1px;
+	line-height: 0px;
+}
+
+/*HTML 5 support - Sets new HTML 5 tags to display:block so browsers know how to render the tags properly. */
+header, section, footer, aside, nav, article, figure {
+	display: block;
+}
+-->
+</style><!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script src="SpryAssets/SpryMenuBar.js" type="text/javascript"></script>
+<link href="SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<div class="container">
+  <header>
+    <a href="#"><img src="logo.jpg" alt="Insert Logo Here" name="Insert_logo" width="960" height="150" id="Insert_logo" style="background: #C6D580; display:block;" /></a>
+  </header>
+<div class="sidebar1">
+    <nav>
+      <ul>
+        <li><a href="anasayfa.html">Anasayfa</a></li>
+        <li><a href="hakkimizda.html">Hakkımızda</a></li>
+        <li><a href="iletisim.html">İletişim</a></li>
+        <li><a href="uyelik.html">Üyelik</a></li>
+      </ul>
+    </nav>
+  <img src="gifler/gif5.gif" width="180" height="240">  <!-- end .sidebar1 --></div>
+  <article class="content">
+    <section>
+<blockquote>
+<ul id="MenuBar1" class="MenuBarHorizontal">
+  <li><a class="MenuBarItemSubmenu" href="#">Erkek</a>
+    <ul>
+      <li><a href="mont.html">Mont</a></li>
+      <li><a href="hirka.html">H&#305;rka</a></li>
+      <li><a href="kazak.html">Kazak</a></li>
+      <li><a href="kot.html">Kot</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Bayan</a>
+    <ul>
+      <li><a href="etek.html">Etek</a></li>
+      <li><a href="swit.html">Swit</a></li>
+      <li><a href="badi.html">Badi</a></li>
+      <li><a href="pantolon.html">Pantolon</a></li>
+    </ul>
+  </li>
+  <li><a class="MenuBarItemSubmenu" href="#">&Ccedil;ocuk</a>
+    <ul>
+      <li><a href="gomlek.html">G&ouml;mlek</a>        </li>
+      <li><a href="yelek.html">Yelek</a></li>
+      <li><a href="tulum.html">Tulum</a></li>
+      <li><a href="tisort.html">Ti&#351;ort</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Aksesuar</a>
+    <ul>
+      <li><a href="saat.html">Saat</a></li>
+      <li><a href="sal.html">&#350;al</a></li>
+      <li><a href="taki.html">Tak&#305;</a></li>
+      <li><a href="atkibere.html">Atk&#305;/Bere</a></li>
+    </ul>
+  </li>
+</ul>
+<h2>&nbsp;</h2>
+</blockquote>
+<p>&nbsp;</p>
+      <h2>SAATLER</h2>
+    </section>
+    <section>
+    <img src="saat/saat.jpg" width="294" height="470"> <img src="saat/saat1.jpg" width="300" height="470"><img src="saat/saat2.jpg" width="294" height="470"> <img src="saat/saat3.jpg" width="300" height="470"><img src="saat/saat4.jpg" width="294" height="470"> <img src="saat/saat5.jpg" width="300" height="470"><img src="saat/saat6.jpg" width="294" height="470"> <img src="saat/saat8.jpg" width="300" height="470"><img src="saat/saat9.jpg" width="294" height="470"> <img src="saat/saat7.jpg" width="300" height="470"></section>
+    <section>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+    </section>
+  <!-- end .content --></article>
+  <aside>
+       <form>
+Adın <input type="text" name="firstname"></br>
+Soyadın <input type="text" name="firstname"></br>
+Kullanıcı Adın <input type="text" name="firstname"></br>
+Parolan <input type="password" name="pwd"></br>
+<input type="submit" value="Giriş Yap">
+<input type="reset" value="Temizle">
+</form>
+</aside>
+  <footer>
+    <p>&nbsp;</p>
+</footer>
+  <!-- end .container --></div>
+<script type="text/javascript">
+var MenuBar1 = new Spry.Widget.MenuBar("MenuBar1", {imgDown:"SpryAssets/SpryMenuBarDownHover.gif", imgRight:"SpryAssets/SpryMenuBarRightHover.gif"});
+</script>
+</body>
+</html>
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Untitled Document</title>
+<style type="text/css">
+<!--
+body {
+	font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
+	background: #42413C;
+	margin: 0;
+	padding: 0;
+	color: #000;
+}
+/* ~~ Element/tag selectors ~~ */
+ul, ol, dl { /* Due to variations between browsers, it's best practices to zero padding and margin on lists. For consistency, you can either specify the amounts you want here, or on the list items (LI, DT, DD) they contain. Remember that what you do here will cascade to the .nav list unless you write a more specific selector. */
+	padding: 0;
+	margin: 0;
+}
+h1, h2, h3, h4, h5, h6, p {
+	margin-top: 0;	 /* removing the top margin gets around an issue where margins can escape from their containing block. The remaining bottom margin will hold it away from any elements that follow. */
+	padding-right: 25px;
+	padding-left: 250px; /* adding the padding to the sides of the elements within the blocks, instead of the block elements themselves, gets rid of any box model math. A nested block with side padding can also be used as an alternate method. */
+}
+a img { /* this selector removes the default blue border displayed in some browsers around an image when it is surrounded by a link */
+	border: none;
+}
+/* ~~ Styling for your site's links must remain in this order - including the group of selectors that create the hover effect. ~~ */
+a:link {
+	color: #000;
+	text-decoration: underline; /* unless you style your links to look extremely unique, it's best to provide underlines for quick visual identification */
+}
+a:visited {
+	color: #000;
+	text-decoration: underline;
+}
+a:hover, a:active, a:focus { /* this group of selectors will give a keyboard navigator the same hover experience as the person using a mouse. */
+	text-decoration: none;
+}
+/* ~~ This fixed width container surrounds all other blocks ~~ */
+.container {
+	width: 960px;
+	background: #FFFFFF;
+	margin: 0 auto; /* the auto value on the sides, coupled with the width, centers the layout */
+}
+/* ~~ The header is not given a width. It will extend the full width of your layout. ~~ */
+header {
+	background: #ADB96E;
+}
+/* ~~ These are the columns for the layout. ~~ 
+
+1) Padding is only placed on the top and/or bottom of the block elements. The elements within these blocks have padding on their sides. This saves you from any "box model math". Keep in mind, if you add any side padding or border to the block itself, it will be added to the width you define to create the *total* width. You may also choose to remove the padding on the element in the block element and place a second block element within it with no width and the padding necessary for your design.
+
+2) No margin has been given to the columns since they are all floated. If you must add margin, avoid placing it on the side you're floating toward (for example: a right margin on a block set to float right). Many times, padding can be used instead. For blocks where this rule must be broken, you should add a "display:inline" declaration to the block element's rule to tame a bug where some versions of Internet Explorer double the margin.
+
+3) Since classes can be used multiple times in a document (and an element can also have multiple classes applied), the columns have been assigned class names instead of IDs. For example, two sidebar blocks could be stacked if necessary. These can very easily be changed to IDs if that's your preference, as long as you'll only be using them once per document.
+
+4) If you prefer your nav on the left instead of the right, simply float these columns the opposite direction (all left instead of all right) and they'll render in reverse order. There's no need to move the blocks around in the HTML source.
+
+*/
+.sidebar1 {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding-bottom: 10px;
+}
+.content {
+	padding: 10px 0;
+	width: 600px;
+	float: left;
+}
+aside {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding: 10px 0;
+}
+
+/* ~~ This grouped selector gives the lists in the .content area space ~~ */
+.content ul, .content ol {
+	padding: 0 15px 15px 40px; /* this padding mirrors the right padding in the headings and paragraph rule above. Padding was placed on the bottom for space between other elements on the lists and on the left to create the indention. These may be adjusted as you wish. */
+}
+
+/* ~~ The navigation list styles (can be removed if you choose to use a premade flyout menu like Spry) ~~ */
+nav ul {
+	list-style: none; /* this removes the list marker */
+	border-top: 1px solid #666; /* this creates the top border for the links - all others are placed using a bottom border on the LI */
+	margin-bottom: 15px; /* this creates the space between the navigation on the content below */
+}
+nav ul li {
+	border-bottom: 1px solid #666; /* this creates the button separation */
+}
+nav ul a, nav ul a:visited { /* grouping these selectors makes sure that your links retain their button look even after being visited */
+	padding: 5px 5px 5px 15px;
+	display: block; /* this gives the link block properties causing it to fill the whole LI containing it. This causes the entire area to react to a mouse click. */
+	width: 160px;  /*this width makes the entire button clickable for IE6. If you don't need to support IE6, it can be removed. Calculate the proper width by subtracting the padding on this link from the width of your sidebar container. */
+	text-decoration: none;
+	background: #C6D580;
+}
+nav ul a:hover, nav ul a:active, nav ul a:focus { /* this changes the background and text color for both mouse and keyboard navigators */
+	background: #ADB96E;
+	color: #FFF;
+}
+
+/* ~~ The footer ~~ */
+footer {
+	padding: 10px 0;
+	background: #CCC49F;
+	position: relative;/* this gives IE6 hasLayout to properly clear */
+	clear: both; /* this clear property forces the .container to understand where the columns end and contain them */
+}
+/* ~~ Miscellaneous float/clear classes ~~ */
+.fltrt {  /* this class can be used to float an element right in your page. The floated element must precede the element it should be next to on the page. */
+	float: right;
+	margin-left: 8px;
+}
+.fltlft { /* this class can be used to float an element left in your page. The floated element must precede the element it should be next to on the page. */
+	float: left;
+	margin-right: 8px;
+}
+.clearfloat { /* this class can be placed on a <br /> or empty block element as the final element following the last floated block (within the .container) if the footer is removed or taken out of the .container */
+	clear:both;
+	height:0;
+	font-size: 1px;
+	line-height: 0px;
+}
+
+/*HTML 5 support - Sets new HTML 5 tags to display:block so browsers know how to render the tags properly. */
+header, section, footer, aside, nav, article, figure {
+	display: block;
+}
+-->
+</style><!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script src="SpryAssets/SpryMenuBar.js" type="text/javascript"></script>
+<link href="SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<div class="container">
+  <header>
+    <a href="#"><img src="logo.jpg" alt="Insert Logo Here" name="Insert_logo" width="960" height="150" id="Insert_logo" style="background: #C6D580; display:block;" /></a>
+  </header>
+<div class="sidebar1">
+    <nav>
+      <ul>
+        <li><a href="anasayfa.html">Anasayfa</a></li>
+        <li><a href="hakkimizda.html">Hakkımızda</a></li>
+        <li><a href="iletisim.html">İletişim</a></li>
+        <li><a href="uyelik.html">Üyelik</a></li>
+      </ul>
+    </nav>
+  <img src="gifler/gif5.gif" width="180" height="240">  <!-- end .sidebar1 --></div>
+  <article class="content">
+    <section>
+<blockquote>
+<ul id="MenuBar1" class="MenuBarHorizontal">
+  <li><a class="MenuBarItemSubmenu" href="#">Erkek</a>
+    <ul>
+      <li><a href="mont.html">Mont</a></li>
+      <li><a href="hirka.html">H&#305;rka</a></li>
+      <li><a href="kazak.html">Kazak</a></li>
+      <li><a href="kot.html">Kot</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Bayan</a>
+    <ul>
+      <li><a href="etek.html">Etek</a></li>
+      <li><a href="swit.html">Swit</a></li>
+      <li><a href="badi.html">Badi</a></li>
+      <li><a href="pantolon.html">Pantolon</a></li>
+    </ul>
+  </li>
+  <li><a class="MenuBarItemSubmenu" href="#">&Ccedil;ocuk</a>
+    <ul>
+      <li><a href="gomlek.html">G&ouml;mlek</a>        </li>
+      <li><a href="yelek.html">Yelek</a></li>
+      <li><a href="tulum.html">Tulum</a></li>
+      <li><a href="tisort.html">Ti&#351;ort</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Aksesuar</a>
+    <ul>
+      <li><a href="saat.html">Saat</a></li>
+      <li><a href="sal.html">&#350;al</a></li>
+      <li><a href="taki.html">Tak&#305;</a></li>
+      <li><a href="atkibere.html">Atk&#305;/Bere</a></li>
+    </ul>
+  </li>
+</ul>
+<h2>&nbsp;</h2>
+</blockquote>
+<p>&nbsp;</p>
+      <h2>ŞALLAR</h2>
+    </section>
+    <section><img src="sal/sal.jpg" width="294" height="470"> <img src="sal/sal1.jpg" width="300" height="470"><img src="sal/sal2.jpeg" width="294" height="470"> <img src="sal/sal3.jpg" width="300" height="470"><img src="sal/sal4.jpg" width="294" height="470"> <img src="sal/sal5.jpg" width="300" height="470"><img src="sal/sal6.jpg" width="294" height="470"> <img src="sal/sal7.jpg" width="300" height="470"><img src="sal/sal8.jpg" width="294" height="470"> <img src="sal/sal9.jpg" width="300" height="470"></section>
+    <section>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+    </section>
+  <!-- end .content --></article>
+  <aside>
+       <form>
+Adın <input type="text" name="firstname"></br>
+Soyadın <input type="text" name="firstname"></br>
+Kullanıcı Adın <input type="text" name="firstname"></br>
+Parolan <input type="password" name="pwd"></br>
+<input type="submit" value="Giriş Yap">
+<input type="reset" value="Temizle">
+</form>
+</aside>
+  <footer>
+    <p>&nbsp;</p>
+</footer>
+  <!-- end .container --></div>
+<script type="text/javascript">
+var MenuBar1 = new Spry.Widget.MenuBar("MenuBar1", {imgDown:"SpryAssets/SpryMenuBarDownHover.gif", imgRight:"SpryAssets/SpryMenuBarRightHover.gif"});
+</script>
+</body>
+</html>
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Untitled Document</title>
+<style type="text/css">
+<!--
+body {
+	font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
+	background: #42413C;
+	margin: 0;
+	padding: 0;
+	color: #000;
+}
+/* ~~ Element/tag selectors ~~ */
+ul, ol, dl { /* Due to variations between browsers, it's best practices to zero padding and margin on lists. For consistency, you can either specify the amounts you want here, or on the list items (LI, DT, DD) they contain. Remember that what you do here will cascade to the .nav list unless you write a more specific selector. */
+	padding: 0;
+	margin: 0;
+}
+h1, h2, h3, h4, h5, h6, p {
+	margin-top: 0;	 /* removing the top margin gets around an issue where margins can escape from their containing block. The remaining bottom margin will hold it away from any elements that follow. */
+	padding-right: 25px;
+	padding-left: 240px; /* adding the padding to the sides of the elements within the blocks, instead of the block elements themselves, gets rid of any box model math. A nested block with side padding can also be used as an alternate method. */
+}
+a img { /* this selector removes the default blue border displayed in some browsers around an image when it is surrounded by a link */
+	border: none;
+}
+/* ~~ Styling for your site's links must remain in this order - including the group of selectors that create the hover effect. ~~ */
+a:link {
+	color: #000;
+	text-decoration: underline; /* unless you style your links to look extremely unique, it's best to provide underlines for quick visual identification */
+}
+a:visited {
+	color: #000;
+	text-decoration: underline;
+}
+a:hover, a:active, a:focus { /* this group of selectors will give a keyboard navigator the same hover experience as the person using a mouse. */
+	text-decoration: none;
+}
+/* ~~ This fixed width container surrounds all other blocks ~~ */
+.container {
+	width: 960px;
+	background: #FFFFFF;
+	margin: 0 auto; /* the auto value on the sides, coupled with the width, centers the layout */
+}
+/* ~~ The header is not given a width. It will extend the full width of your layout. ~~ */
+header {
+	background: #ADB96E;
+}
+/* ~~ These are the columns for the layout. ~~ 
+
+1) Padding is only placed on the top and/or bottom of the block elements. The elements within these blocks have padding on their sides. This saves you from any "box model math". Keep in mind, if you add any side padding or border to the block itself, it will be added to the width you define to create the *total* width. You may also choose to remove the padding on the element in the block element and place a second block element within it with no width and the padding necessary for your design.
+
+2) No margin has been given to the columns since they are all floated. If you must add margin, avoid placing it on the side you're floating toward (for example: a right margin on a block set to float right). Many times, padding can be used instead. For blocks where this rule must be broken, you should add a "display:inline" declaration to the block element's rule to tame a bug where some versions of Internet Explorer double the margin.
+
+3) Since classes can be used multiple times in a document (and an element can also have multiple classes applied), the columns have been assigned class names instead of IDs. For example, two sidebar blocks could be stacked if necessary. These can very easily be changed to IDs if that's your preference, as long as you'll only be using them once per document.
+
+4) If you prefer your nav on the left instead of the right, simply float these columns the opposite direction (all left instead of all right) and they'll render in reverse order. There's no need to move the blocks around in the HTML source.
+
+*/
+.sidebar1 {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding-bottom: 10px;
+}
+.content {
+	padding: 10px 0;
+	width: 600px;
+	float: left;
+}
+aside {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding: 10px 0;
+}
+
+/* ~~ This grouped selector gives the lists in the .content area space ~~ */
+.content ul, .content ol {
+	padding: 0 15px 15px 40px; /* this padding mirrors the right padding in the headings and paragraph rule above. Padding was placed on the bottom for space between other elements on the lists and on the left to create the indention. These may be adjusted as you wish. */
+}
+
+/* ~~ The navigation list styles (can be removed if you choose to use a premade flyout menu like Spry) ~~ */
+nav ul {
+	list-style: none; /* this removes the list marker */
+	border-top: 1px solid #666; /* this creates the top border for the links - all others are placed using a bottom border on the LI */
+	margin-bottom: 15px; /* this creates the space between the navigation on the content below */
+}
+nav ul li {
+	border-bottom: 1px solid #666; /* this creates the button separation */
+}
+nav ul a, nav ul a:visited { /* grouping these selectors makes sure that your links retain their button look even after being visited */
+	padding: 5px 5px 5px 15px;
+	display: block; /* this gives the link block properties causing it to fill the whole LI containing it. This causes the entire area to react to a mouse click. */
+	width: 160px;  /*this width makes the entire button clickable for IE6. If you don't need to support IE6, it can be removed. Calculate the proper width by subtracting the padding on this link from the width of your sidebar container. */
+	text-decoration: none;
+	background: #C6D580;
+}
+nav ul a:hover, nav ul a:active, nav ul a:focus { /* this changes the background and text color for both mouse and keyboard navigators */
+	background: #ADB96E;
+	color: #FFF;
+}
+
+/* ~~ The footer ~~ */
+footer {
+	padding: 10px 0;
+	background: #CCC49F;
+	position: relative;/* this gives IE6 hasLayout to properly clear */
+	clear: both; /* this clear property forces the .container to understand where the columns end and contain them */
+}
+/* ~~ Miscellaneous float/clear classes ~~ */
+.fltrt {  /* this class can be used to float an element right in your page. The floated element must precede the element it should be next to on the page. */
+	float: right;
+	margin-left: 8px;
+}
+.fltlft { /* this class can be used to float an element left in your page. The floated element must precede the element it should be next to on the page. */
+	float: left;
+	margin-right: 8px;
+}
+.clearfloat { /* this class can be placed on a <br /> or empty block element as the final element following the last floated block (within the .container) if the footer is removed or taken out of the .container */
+	clear:both;
+	height:0;
+	font-size: 1px;
+	line-height: 0px;
+}
+
+/*HTML 5 support - Sets new HTML 5 tags to display:block so browsers know how to render the tags properly. */
+header, section, footer, aside, nav, article, figure {
+	display: block;
+}
+-->
+</style><!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script src="SpryAssets/SpryMenuBar.js" type="text/javascript"></script>
+<link href="SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<div class="container">
+  <header>
+    <a href="#"><img src="logo.jpg" alt="Insert Logo Here" name="Insert_logo" width="960" height="150" id="Insert_logo" style="background: #C6D580; display:block;" /></a>
+  </header>
+<div class="sidebar1">
+    <nav>
+      <ul>
+        <li><a href="anasayfa.html">Anasayfa</a></li>
+        <li><a href="hakkimizda.html">Hakkımızda</a></li>
+        <li><a href="iletisim.html">İletişim</a></li>
+        <li><a href="uyelik.html">Üyelik</a></li>
+      </ul>
+    </nav>
+  <img src="gifler/gif5.gif" width="180" height="240">  <!-- end .sidebar1 --></div>
+  <article class="content">
+    <section>
+<blockquote>
+<ul id="MenuBar1" class="MenuBarHorizontal">
+  <li><a class="MenuBarItemSubmenu" href="#">Erkek</a>
+    <ul>
+      <li><a href="mont.html">Mont</a></li>
+      <li><a href="hirka.html">H&#305;rka</a></li>
+      <li><a href="kazak.html">Kazak</a></li>
+      <li><a href="kot.html">Kot</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Bayan</a>
+    <ul>
+      <li><a href="etek.html">Etek</a></li>
+      <li><a href="swit.html">Swit</a></li>
+      <li><a href="badi.html">Badi</a></li>
+      <li><a href="pantolon.html">Pantolon</a></li>
+    </ul>
+  </li>
+  <li><a class="MenuBarItemSubmenu" href="#">&Ccedil;ocuk</a>
+    <ul>
+      <li><a href="gomlek.html">G&ouml;mlek</a>        </li>
+      <li><a href="yelek.html">Yelek</a></li>
+      <li><a href="tulum.html">Tulum</a></li>
+      <li><a href="tisort.html">Ti&#351;ort</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Aksesuar</a>
+    <ul>
+      <li><a href="saat.html">Saat</a></li>
+      <li><a href="sal.html">&#350;al</a></li>
+      <li><a href="taki.html">Tak&#305;</a></li>
+      <li><a href="atkibere.html">Atk&#305;/Bere</a></li>
+    </ul>
+  </li>
+</ul>
+<h2>&nbsp;</h2>
+</blockquote>
+<p>&nbsp;</p>
+      <h2>SWİTLER</h2>
+    </section>
+    <section>
+    <img src="swit/swit.jpg" width="294" height="470"> <img src="swit/swit1.jpg" width="300" height="470"><img src="swit/swit2.jpg" width="294" height="470"> <img src="swit/swit3.jpg" width="300" height="470"><img src="swit/swit4.jpg" width="294" height="470"> <img src="swit/swit5.jpg" width="300" height="470"><img src="swit/swit6.jpg" width="294" height="470"> <img src="swit/swit7.jpg" width="300" height="470"><img src="swit/swit8.jpg" width="294" height="470"> <img src="swit/swit9.jpg" width="300" height="470"></section>
+    <section>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+    </section>
+  <!-- end .content --></article>
+  <aside>
+        <form>
+Adın <input type="text" name="firstname"></br>
+Soyadın <input type="text" name="firstname"></br>
+Kullanıcı Adın <input type="text" name="firstname"></br>
+Parolan <input type="password" name="pwd"></br>
+<input type="submit" value="Giriş Yap">
+<input type="reset" value="Temizle">
+</form>
+</aside>
+  <footer>
+    <p>&nbsp;</p>
+</footer>
+  <!-- end .container --></div>
+<script type="text/javascript">
+var MenuBar1 = new Spry.Widget.MenuBar("MenuBar1", {imgDown:"SpryAssets/SpryMenuBarDownHover.gif", imgRight:"SpryAssets/SpryMenuBarRightHover.gif"});
+</script>
+</body>
+</html>
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Untitled Document</title>
+<style type="text/css">
+<!--
+body {
+	font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
+	background: #42413C;
+	margin: 0;
+	padding: 0;
+	color: #000;
+}
+/* ~~ Element/tag selectors ~~ */
+ul, ol, dl { /* Due to variations between browsers, it's best practices to zero padding and margin on lists. For consistency, you can either specify the amounts you want here, or on the list items (LI, DT, DD) they contain. Remember that what you do here will cascade to the .nav list unless you write a more specific selector. */
+	padding: 0;
+	margin: 0;
+}
+h1, h2, h3, h4, h5, h6, p {
+	margin-top: 0;	 /* removing the top margin gets around an issue where margins can escape from their containing block. The remaining bottom margin will hold it away from any elements that follow. */
+	padding-right: 25px;
+	padding-left: 250px; /* adding the padding to the sides of the elements within the blocks, instead of the block elements themselves, gets rid of any box model math. A nested block with side padding can also be used as an alternate method. */
+}
+a img { /* this selector removes the default blue border displayed in some browsers around an image when it is surrounded by a link */
+	border: none;
+}
+/* ~~ Styling for your site's links must remain in this order - including the group of selectors that create the hover effect. ~~ */
+a:link {
+	color: #000;
+	text-decoration: underline; /* unless you style your links to look extremely unique, it's best to provide underlines for quick visual identification */
+}
+a:visited {
+	color: #000;
+	text-decoration: underline;
+}
+a:hover, a:active, a:focus { /* this group of selectors will give a keyboard navigator the same hover experience as the person using a mouse. */
+	text-decoration: none;
+}
+/* ~~ This fixed width container surrounds all other blocks ~~ */
+.container {
+	width: 960px;
+	background: #FFFFFF;
+	margin: 0 auto; /* the auto value on the sides, coupled with the width, centers the layout */
+}
+/* ~~ The header is not given a width. It will extend the full width of your layout. ~~ */
+header {
+	background: #ADB96E;
+}
+/* ~~ These are the columns for the layout. ~~ 
+
+1) Padding is only placed on the top and/or bottom of the block elements. The elements within these blocks have padding on their sides. This saves you from any "box model math". Keep in mind, if you add any side padding or border to the block itself, it will be added to the width you define to create the *total* width. You may also choose to remove the padding on the element in the block element and place a second block element within it with no width and the padding necessary for your design.
+
+2) No margin has been given to the columns since they are all floated. If you must add margin, avoid placing it on the side you're floating toward (for example: a right margin on a block set to float right). Many times, padding can be used instead. For blocks where this rule must be broken, you should add a "display:inline" declaration to the block element's rule to tame a bug where some versions of Internet Explorer double the margin.
+
+3) Since classes can be used multiple times in a document (and an element can also have multiple classes applied), the columns have been assigned class names instead of IDs. For example, two sidebar blocks could be stacked if necessary. These can very easily be changed to IDs if that's your preference, as long as you'll only be using them once per document.
+
+4) If you prefer your nav on the left instead of the right, simply float these columns the opposite direction (all left instead of all right) and they'll render in reverse order. There's no need to move the blocks around in the HTML source.
+
+*/
+.sidebar1 {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding-bottom: 10px;
+}
+.content {
+	padding: 10px 0;
+	width: 600px;
+	float: left;
+}
+aside {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding: 10px 0;
+}
+
+/* ~~ This grouped selector gives the lists in the .content area space ~~ */
+.content ul, .content ol {
+	padding: 0 15px 15px 40px; /* this padding mirrors the right padding in the headings and paragraph rule above. Padding was placed on the bottom for space between other elements on the lists and on the left to create the indention. These may be adjusted as you wish. */
+}
+
+/* ~~ The navigation list styles (can be removed if you choose to use a premade flyout menu like Spry) ~~ */
+nav ul {
+	list-style: none; /* this removes the list marker */
+	border-top: 1px solid #666; /* this creates the top border for the links - all others are placed using a bottom border on the LI */
+	margin-bottom: 15px; /* this creates the space between the navigation on the content below */
+}
+nav ul li {
+	border-bottom: 1px solid #666; /* this creates the button separation */
+}
+nav ul a, nav ul a:visited { /* grouping these selectors makes sure that your links retain their button look even after being visited */
+	padding: 5px 5px 5px 15px;
+	display: block; /* this gives the link block properties causing it to fill the whole LI containing it. This causes the entire area to react to a mouse click. */
+	width: 160px;  /*this width makes the entire button clickable for IE6. If you don't need to support IE6, it can be removed. Calculate the proper width by subtracting the padding on this link from the width of your sidebar container. */
+	text-decoration: none;
+	background: #C6D580;
+}
+nav ul a:hover, nav ul a:active, nav ul a:focus { /* this changes the background and text color for both mouse and keyboard navigators */
+	background: #ADB96E;
+	color: #FFF;
+}
+
+/* ~~ The footer ~~ */
+footer {
+	padding: 10px 0;
+	background: #CCC49F;
+	position: relative;/* this gives IE6 hasLayout to properly clear */
+	clear: both; /* this clear property forces the .container to understand where the columns end and contain them */
+}
+/* ~~ Miscellaneous float/clear classes ~~ */
+.fltrt {  /* this class can be used to float an element right in your page. The floated element must precede the element it should be next to on the page. */
+	float: right;
+	margin-left: 8px;
+}
+.fltlft { /* this class can be used to float an element left in your page. The floated element must precede the element it should be next to on the page. */
+	float: left;
+	margin-right: 8px;
+}
+.clearfloat { /* this class can be placed on a <br /> or empty block element as the final element following the last floated block (within the .container) if the footer is removed or taken out of the .container */
+	clear:both;
+	height:0;
+	font-size: 1px;
+	line-height: 0px;
+}
+
+/*HTML 5 support - Sets new HTML 5 tags to display:block so browsers know how to render the tags properly. */
+header, section, footer, aside, nav, article, figure {
+	display: block;
+}
+-->
+</style><!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script src="SpryAssets/SpryMenuBar.js" type="text/javascript"></script>
+<link href="SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<div class="container">
+  <header>
+    <a href="#"><img src="logo.jpg" alt="Insert Logo Here" name="Insert_logo" width="960" height="150" id="Insert_logo" style="background: #C6D580; display:block;" /></a>
+  </header>
+<div class="sidebar1">
+    <nav>
+      <ul>
+        <li><a href="anasayfa.html">Anasayfa</a></li>
+        <li><a href="hakkimizda.html">Hakkımızda</a></li>
+        <li><a href="iletisim.html">İletişim</a></li>
+        <li><a href="uyelik.html">Üyelik</a></li>
+      </ul>
+    </nav>
+  <img src="gifler/gif5.gif" width="180" height="240">  <!-- end .sidebar1 --></div>
+  <article class="content">
+    <section>
+<blockquote>
+<ul id="MenuBar1" class="MenuBarHorizontal">
+  <li><a class="MenuBarItemSubmenu" href="#">Erkek</a>
+    <ul>
+      <li><a href="mont.html">Mont</a></li>
+      <li><a href="hirka.html">H&#305;rka</a></li>
+      <li><a href="kazak.html">Kazak</a></li>
+      <li><a href="kot.html">Kot</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Bayan</a>
+    <ul>
+      <li><a href="etek.html">Etek</a></li>
+      <li><a href="swit.html">Swit</a></li>
+      <li><a href="badi.html">Badi</a></li>
+      <li><a href="pantolon.html">Pantolon</a></li>
+    </ul>
+  </li>
+  <li><a class="MenuBarItemSubmenu" href="#">&Ccedil;ocuk</a>
+    <ul>
+      <li><a href="gomlek.html">G&ouml;mlek</a>        </li>
+      <li><a href="yelek.html">Yelek</a></li>
+      <li><a href="tulum.html">Tulum</a></li>
+      <li><a href="tisort.html">Ti&#351;ort</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Aksesuar</a>
+    <ul>
+      <li><a href="saat.html">Saat</a></li>
+      <li><a href="sal.html">&#350;al</a></li>
+      <li><a href="taki.html">Tak&#305;</a></li>
+      <li><a href="atkibere.html">Atk&#305;/Bere</a></li>
+    </ul>
+  </li>
+</ul>
+<h2>&nbsp;</h2>
+</blockquote>
+<p>&nbsp;</p>
+      <h2>TAKILAR</h2>
+    </section>
+    <section>
+    <img src="taki/taki.jpg" width="294" height="470"> <img src="taki/taki1.jpg" width="300" height="470"><img src="taki/taki2.jpg" width="294" height="470"> <img src="taki/taki3.jpg" width="300" height="470"><img src="taki/taki4.jpg" width="294" height="470"> <img src="taki/taki5.jpg" width="300" height="470"><img src="taki/taki6.jpg" width="294" height="470"> <img src="taki/taki7.jpg" width="300" height="470"><img src="taki/taki8.jpg" width="294" height="470"> <img src="taki/taki9.jpg" width="300" height="470"></section>
+    <section>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+    </section>
+  <!-- end .content --></article>
+  <aside>
+       <form>
+Adın <input type="text" name="firstname"></br>
+Soyadın <input type="text" name="firstname"></br>
+Kullanıcı Adın <input type="text" name="firstname"></br>
+Parolan <input type="password" name="pwd"></br>
+<input type="submit" value="Giriş Yap">
+<input type="reset" value="Temizle">
+</form>
+</aside>
+  <footer>
+    <p>&nbsp;</p>
+</footer>
+  <!-- end .container --></div>
+<script type="text/javascript">
+var MenuBar1 = new Spry.Widget.MenuBar("MenuBar1", {imgDown:"SpryAssets/SpryMenuBarDownHover.gif", imgRight:"SpryAssets/SpryMenuBarRightHover.gif"});
+</script>
+</body>
+</html>
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Untitled Document</title>
+<style type="text/css">
+<!--
+body {
+	font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
+	background: #42413C;
+	margin: 0;
+	padding: 0;
+	color: #000;
+}
+/* ~~ Element/tag selectors ~~ */
+ul, ol, dl { /* Due to variations between browsers, it's best practices to zero padding and margin on lists. For consistency, you can either specify the amounts you want here, or on the list items (LI, DT, DD) they contain. Remember that what you do here will cascade to the .nav list unless you write a more specific selector. */
+	padding: 0;
+	margin: 0;
+}
+h1, h2, h3, h4, h5, h6, p {
+	margin-top: 0;	 /* removing the top margin gets around an issue where margins can escape from their containing block. The remaining bottom margin will hold it away from any elements that follow. */
+	padding-right: 25px;
+	padding-left: 235px; /* adding the padding to the sides of the elements within the blocks, instead of the block elements themselves, gets rid of any box model math. A nested block with side padding can also be used as an alternate method. */
+}
+a img { /* this selector removes the default blue border displayed in some browsers around an image when it is surrounded by a link */
+	border: none;
+}
+/* ~~ Styling for your site's links must remain in this order - including the group of selectors that create the hover effect. ~~ */
+a:link {
+	color: #000;
+	text-decoration: underline; /* unless you style your links to look extremely unique, it's best to provide underlines for quick visual identification */
+}
+a:visited {
+	color: #000;
+	text-decoration: underline;
+}
+a:hover, a:active, a:focus { /* this group of selectors will give a keyboard navigator the same hover experience as the person using a mouse. */
+	text-decoration: none;
+}
+/* ~~ This fixed width container surrounds all other blocks ~~ */
+.container {
+	width: 960px;
+	background: #FFFFFF;
+	margin: 0 auto; /* the auto value on the sides, coupled with the width, centers the layout */
+}
+/* ~~ The header is not given a width. It will extend the full width of your layout. ~~ */
+header {
+	background: #ADB96E;
+}
+/* ~~ These are the columns for the layout. ~~ 
+
+1) Padding is only placed on the top and/or bottom of the block elements. The elements within these blocks have padding on their sides. This saves you from any "box model math". Keep in mind, if you add any side padding or border to the block itself, it will be added to the width you define to create the *total* width. You may also choose to remove the padding on the element in the block element and place a second block element within it with no width and the padding necessary for your design.
+
+2) No margin has been given to the columns since they are all floated. If you must add margin, avoid placing it on the side you're floating toward (for example: a right margin on a block set to float right). Many times, padding can be used instead. For blocks where this rule must be broken, you should add a "display:inline" declaration to the block element's rule to tame a bug where some versions of Internet Explorer double the margin.
+
+3) Since classes can be used multiple times in a document (and an element can also have multiple classes applied), the columns have been assigned class names instead of IDs. For example, two sidebar blocks could be stacked if necessary. These can very easily be changed to IDs if that's your preference, as long as you'll only be using them once per document.
+
+4) If you prefer your nav on the left instead of the right, simply float these columns the opposite direction (all left instead of all right) and they'll render in reverse order. There's no need to move the blocks around in the HTML source.
+
+*/
+.sidebar1 {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding-bottom: 10px;
+}
+.content {
+	padding: 10px 0;
+	width: 600px;
+	float: left;
+}
+aside {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding: 10px 0;
+}
+
+/* ~~ This grouped selector gives the lists in the .content area space ~~ */
+.content ul, .content ol {
+	padding: 0 15px 15px 40px; /* this padding mirrors the right padding in the headings and paragraph rule above. Padding was placed on the bottom for space between other elements on the lists and on the left to create the indention. These may be adjusted as you wish. */
+}
+
+/* ~~ The navigation list styles (can be removed if you choose to use a premade flyout menu like Spry) ~~ */
+nav ul {
+	list-style: none; /* this removes the list marker */
+	border-top: 1px solid #666; /* this creates the top border for the links - all others are placed using a bottom border on the LI */
+	margin-bottom: 15px; /* this creates the space between the navigation on the content below */
+}
+nav ul li {
+	border-bottom: 1px solid #666; /* this creates the button separation */
+}
+nav ul a, nav ul a:visited { /* grouping these selectors makes sure that your links retain their button look even after being visited */
+	padding: 5px 5px 5px 15px;
+	display: block; /* this gives the link block properties causing it to fill the whole LI containing it. This causes the entire area to react to a mouse click. */
+	width: 160px;  /*this width makes the entire button clickable for IE6. If you don't need to support IE6, it can be removed. Calculate the proper width by subtracting the padding on this link from the width of your sidebar container. */
+	text-decoration: none;
+	background: #C6D580;
+}
+nav ul a:hover, nav ul a:active, nav ul a:focus { /* this changes the background and text color for both mouse and keyboard navigators */
+	background: #ADB96E;
+	color: #FFF;
+}
+
+/* ~~ The footer ~~ */
+footer {
+	padding: 10px 0;
+	background: #CCC49F;
+	position: relative;/* this gives IE6 hasLayout to properly clear */
+	clear: both; /* this clear property forces the .container to understand where the columns end and contain them */
+}
+/* ~~ Miscellaneous float/clear classes ~~ */
+.fltrt {  /* this class can be used to float an element right in your page. The floated element must precede the element it should be next to on the page. */
+	float: right;
+	margin-left: 8px;
+}
+.fltlft { /* this class can be used to float an element left in your page. The floated element must precede the element it should be next to on the page. */
+	float: left;
+	margin-right: 8px;
+}
+.clearfloat { /* this class can be placed on a <br /> or empty block element as the final element following the last floated block (within the .container) if the footer is removed or taken out of the .container */
+	clear:both;
+	height:0;
+	font-size: 1px;
+	line-height: 0px;
+}
+
+/*HTML 5 support - Sets new HTML 5 tags to display:block so browsers know how to render the tags properly. */
+header, section, footer, aside, nav, article, figure {
+	display: block;
+}
+-->
+</style><!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script src="SpryAssets/SpryMenuBar.js" type="text/javascript"></script>
+<link href="SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<div class="container">
+  <header>
+    <a href="#"><img src="logo.jpg" alt="Insert Logo Here" name="Insert_logo" width="960" height="150" id="Insert_logo" style="background: #C6D580; display:block;" /></a>
+  </header>
+<div class="sidebar1">
+    <nav>
+      <ul>
+        <li><a href="anasayfa.html">Anasayfa</a></li>
+        <li><a href="hakkimizda.html">Hakkımızda</a></li>
+        <li><a href="iletisim.html">İletişim</a></li>
+        <li><a href="uyelik.html">Üyelik</a></li>
+      </ul>
+    </nav>
+  <img src="gifler/gif5.gif" width="180" height="240">  <!-- end .sidebar1 --></div>
+  <article class="content">
+    <section>
+<blockquote>
+<ul id="MenuBar1" class="MenuBarHorizontal">
+  <li><a class="MenuBarItemSubmenu" href="#">Erkek</a>
+    <ul>
+      <li><a href="mont.html">Mont</a></li>
+      <li><a href="hirka.html">H&#305;rka</a></li>
+      <li><a href="kazak.html">Kazak</a></li>
+      <li><a href="kot.html">Kot</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Bayan</a>
+    <ul>
+      <li><a href="etek.html">Etek</a></li>
+      <li><a href="swit.html">Swit</a></li>
+      <li><a href="badi.html">Badi</a></li>
+      <li><a href="pantolon.html">Pantolon</a></li>
+    </ul>
+  </li>
+  <li><a class="MenuBarItemSubmenu" href="#">&Ccedil;ocuk</a>
+    <ul>
+      <li><a href="gomlek.html">G&ouml;mlek</a>        </li>
+      <li><a href="yelek.html">Yelek</a></li>
+      <li><a href="tulum.html">Tulum</a></li>
+      <li><a href="tisort.html">Ti&#351;ort</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Aksesuar</a>
+    <ul>
+      <li><a href="saat.html">Saat</a></li>
+      <li><a href="sal.html">&#350;al</a></li>
+      <li><a href="taki.html">Tak&#305;</a></li>
+      <li><a href="atkibere.html">Atk&#305;/Bere</a></li>
+    </ul>
+  </li>
+</ul>
+<h2>&nbsp;</h2>
+</blockquote>
+<p>&nbsp;</p>
+      <h2>TİŞÖRTLER</h2>
+    </section>
+    <section>
+    <img src="tisort/tisort.jpg" width="294" height="470"> <img src="tisort/tisort1.jpg" width="300" height="470"><img src="tisort/tisort2.jpg" width="294" height="470"> <img src="tisort/tisort3.jpg" width="300" height="470"><img src="tisort/tisort4.JPG" width="294" height="470"> <img src="tisort/tisort5.jpg" width="300" height="470"><img src="tisort/tisort6.jpg" width="294" height="470"> <img src="tisort/tisort7.jpg" width="300" height="470"><img src="tisort/tisort8.jpg" width="294" height="470"> <img src="tisort/tisort9.jpg" width="300" height="470"></section>
+    <section>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+    </section>
+  <!-- end .content --></article>
+  <aside>
+        <form>
+Adın <input type="text" name="firstname"></br>
+Soyadın <input type="text" name="firstname"></br>
+Kullanıcı Adın <input type="text" name="firstname"></br>
+Parolan <input type="password" name="pwd"></br>
+<input type="submit" value="Giriş Yap">
+<input type="reset" value="Temizle">
+</form>
+</aside>
+  <footer>
+    <p>&nbsp;</p>
+</footer>
+  <!-- end .container --></div>
+<script type="text/javascript">
+var MenuBar1 = new Spry.Widget.MenuBar("MenuBar1", {imgDown:"SpryAssets/SpryMenuBarDownHover.gif", imgRight:"SpryAssets/SpryMenuBarRightHover.gif"});
+</script>
+</body>
+</html>
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Untitled Document</title>
+<style type="text/css">
+<!--
+body {
+	font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
+	background: #42413C;
+	margin: 0;
+	padding: 0;
+	color: #000;
+}
+/* ~~ Element/tag selectors ~~ */
+ul, ol, dl { /* Due to variations between browsers, it's best practices to zero padding and margin on lists. For consistency, you can either specify the amounts you want here, or on the list items (LI, DT, DD) they contain. Remember that what you do here will cascade to the .nav list unless you write a more specific selector. */
+	padding: 0;
+	margin: 0;
+}
+h1, h2, h3, h4, h5, h6, p {
+	margin-top: 0;	 /* removing the top margin gets around an issue where margins can escape from their containing block. The remaining bottom margin will hold it away from any elements that follow. */
+	padding-right: 25px;
+	padding-left: 235px; /* adding the padding to the sides of the elements within the blocks, instead of the block elements themselves, gets rid of any box model math. A nested block with side padding can also be used as an alternate method. */
+}
+a img { /* this selector removes the default blue border displayed in some browsers around an image when it is surrounded by a link */
+	border: none;
+}
+/* ~~ Styling for your site's links must remain in this order - including the group of selectors that create the hover effect. ~~ */
+a:link {
+	color: #000;
+	text-decoration: underline; /* unless you style your links to look extremely unique, it's best to provide underlines for quick visual identification */
+}
+a:visited {
+	color: #000;
+	text-decoration: underline;
+}
+a:hover, a:active, a:focus { /* this group of selectors will give a keyboard navigator the same hover experience as the person using a mouse. */
+	text-decoration: none;
+}
+/* ~~ This fixed width container surrounds all other blocks ~~ */
+.container {
+	width: 960px;
+	background: #FFFFFF;
+	margin: 0 auto; /* the auto value on the sides, coupled with the width, centers the layout */
+}
+/* ~~ The header is not given a width. It will extend the full width of your layout. ~~ */
+header {
+	background: #ADB96E;
+}
+/* ~~ These are the columns for the layout. ~~ 
+
+1) Padding is only placed on the top and/or bottom of the block elements. The elements within these blocks have padding on their sides. This saves you from any "box model math". Keep in mind, if you add any side padding or border to the block itself, it will be added to the width you define to create the *total* width. You may also choose to remove the padding on the element in the block element and place a second block element within it with no width and the padding necessary for your design.
+
+2) No margin has been given to the columns since they are all floated. If you must add margin, avoid placing it on the side you're floating toward (for example: a right margin on a block set to float right). Many times, padding can be used instead. For blocks where this rule must be broken, you should add a "display:inline" declaration to the block element's rule to tame a bug where some versions of Internet Explorer double the margin.
+
+3) Since classes can be used multiple times in a document (and an element can also have multiple classes applied), the columns have been assigned class names instead of IDs. For example, two sidebar blocks could be stacked if necessary. These can very easily be changed to IDs if that's your preference, as long as you'll only be using them once per document.
+
+4) If you prefer your nav on the left instead of the right, simply float these columns the opposite direction (all left instead of all right) and they'll render in reverse order. There's no need to move the blocks around in the HTML source.
+
+*/
+.sidebar1 {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding-bottom: 10px;
+}
+.content {
+	padding: 10px 0;
+	width: 600px;
+	float: left;
+}
+aside {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding: 10px 0;
+}
+
+/* ~~ This grouped selector gives the lists in the .content area space ~~ */
+.content ul, .content ol {
+	padding: 0 15px 15px 40px; /* this padding mirrors the right padding in the headings and paragraph rule above. Padding was placed on the bottom for space between other elements on the lists and on the left to create the indention. These may be adjusted as you wish. */
+}
+
+/* ~~ The navigation list styles (can be removed if you choose to use a premade flyout menu like Spry) ~~ */
+nav ul {
+	list-style: none; /* this removes the list marker */
+	border-top: 1px solid #666; /* this creates the top border for the links - all others are placed using a bottom border on the LI */
+	margin-bottom: 15px; /* this creates the space between the navigation on the content below */
+}
+nav ul li {
+	border-bottom: 1px solid #666; /* this creates the button separation */
+}
+nav ul a, nav ul a:visited { /* grouping these selectors makes sure that your links retain their button look even after being visited */
+	padding: 5px 5px 5px 15px;
+	display: block; /* this gives the link block properties causing it to fill the whole LI containing it. This causes the entire area to react to a mouse click. */
+	width: 160px;  /*this width makes the entire button clickable for IE6. If you don't need to support IE6, it can be removed. Calculate the proper width by subtracting the padding on this link from the width of your sidebar container. */
+	text-decoration: none;
+	background: #C6D580;
+}
+nav ul a:hover, nav ul a:active, nav ul a:focus { /* this changes the background and text color for both mouse and keyboard navigators */
+	background: #ADB96E;
+	color: #FFF;
+}
+
+/* ~~ The footer ~~ */
+footer {
+	padding: 10px 0;
+	background: #CCC49F;
+	position: relative;/* this gives IE6 hasLayout to properly clear */
+	clear: both; /* this clear property forces the .container to understand where the columns end and contain them */
+}
+/* ~~ Miscellaneous float/clear classes ~~ */
+.fltrt {  /* this class can be used to float an element right in your page. The floated element must precede the element it should be next to on the page. */
+	float: right;
+	margin-left: 8px;
+}
+.fltlft { /* this class can be used to float an element left in your page. The floated element must precede the element it should be next to on the page. */
+	float: left;
+	margin-right: 8px;
+}
+.clearfloat { /* this class can be placed on a <br /> or empty block element as the final element following the last floated block (within the .container) if the footer is removed or taken out of the .container */
+	clear:both;
+	height:0;
+	font-size: 1px;
+	line-height: 0px;
+}
+
+/*HTML 5 support - Sets new HTML 5 tags to display:block so browsers know how to render the tags properly. */
+header, section, footer, aside, nav, article, figure {
+	display: block;
+}
+-->
+</style><!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script src="SpryAssets/SpryMenuBar.js" type="text/javascript"></script>
+<link href="SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<div class="container">
+  <header>
+    <a href="#"><img src="logo.jpg" alt="Insert Logo Here" name="Insert_logo" width="960" height="150" id="Insert_logo" style="background: #C6D580; display:block;" /></a>
+  </header>
+<div class="sidebar1">
+    <nav>
+      <ul>
+        <li><a href="anasayfa.html">Anasayfa</a></li>
+        <li><a href="hakkimizda.html">Hakkımızda</a></li>
+        <li><a href="iletisim.html">İletişim</a></li>
+        <li><a href="uyelik.html">Üyelik</a></li>
+      </ul>
+    </nav>
+  <img src="gifler/gif5.gif" width="180" height="240">  <!-- end .sidebar1 --></div>
+  <article class="content">
+    <section>
+<blockquote>
+<ul id="MenuBar1" class="MenuBarHorizontal">
+  <li><a class="MenuBarItemSubmenu" href="#">Erkek</a>
+    <ul>
+      <li><a href="mont.html">Mont</a></li>
+      <li><a href="hirka.html">H&#305;rka</a></li>
+      <li><a href="kazak.html">Kazak</a></li>
+      <li><a href="kot.html">Kot</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Bayan</a>
+    <ul>
+      <li><a href="etek.html">Etek</a></li>
+      <li><a href="swit.html">Swit</a></li>
+      <li><a href="badi.html">Badi</a></li>
+      <li><a href="pantolon.html">Pantolon</a></li>
+    </ul>
+  </li>
+  <li><a class="MenuBarItemSubmenu" href="#">&Ccedil;ocuk</a>
+    <ul>
+      <li><a href="gomlek.html">G&ouml;mlek</a>        </li>
+      <li><a href="yelek.html">Yelek</a></li>
+      <li><a href="tulum.html">Tulum</a></li>
+      <li><a href="tisort.html">Ti&#351;ort</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Aksesuar</a>
+    <ul>
+      <li><a href="saat.html">Saat</a></li>
+      <li><a href="sal.html">&#350;al</a></li>
+      <li><a href="taki.html">Tak&#305;</a></li>
+      <li><a href="atkibere.html">Atk&#305;/Bere</a></li>
+    </ul>
+  </li>
+</ul>
+<h2>&nbsp;</h2>
+</blockquote>
+<p>&nbsp;</p>
+      <h2>TULUMLAR</h2>
+    </section>
+    <section>
+    <img src="tulum/tulum.jpg" width="294" height="470"> <img src="tulum/tulum1.jpg" width="300" height="470"><img src="tulum/tulum2.jpg" width="294" height="470"> <img src="tulum/tulum3.jpg" width="300" height="470"><img src="tulum/tulum4.jpg" width="294" height="470"> <img src="tulum/tulum5.jpg" width="300" height="470"><img src="tulum/tulum6.jpg" width="294" height="470"> <img src="tulum/tulum7.jpg" width="300" height="470"><img src="tulum/tulum8.jpg" width="294" height="470"> <img src="tulum/tulum9.jpg" width="300" height="470"></section>
+    <section>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+    </section>
+  <!-- end .content --></article>
+  <aside>
+       <form>
+Adın <input type="text" name="firstname"></br>
+Soyadın <input type="text" name="firstname"></br>
+Kullanıcı Adın <input type="text" name="firstname"></br>
+Parolan <input type="password" name="pwd"></br>
+<input type="submit" value="Giriş Yap">
+<input type="reset" value="Temizle">
+</form>
+</aside>
+  <footer>
+    <p>&nbsp;</p>
+</footer>
+  <!-- end .container --></div>
+<script type="text/javascript">
+var MenuBar1 = new Spry.Widget.MenuBar("MenuBar1", {imgDown:"SpryAssets/SpryMenuBarDownHover.gif", imgRight:"SpryAssets/SpryMenuBarRightHover.gif"});
+</script>
+</body>
+</html>
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Untitled Document</title>
+<style type="text/css">
+<!--
+body {
+	font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
+	background: #42413C;
+	margin: 0;
+	padding: 0;
+	color: #000;
+}
+/* ~~ Element/tag selectors ~~ */
+ul, ol, dl { /* Due to variations between browsers, it's best practices to zero padding and margin on lists. For consistency, you can either specify the amounts you want here, or on the list items (LI, DT, DD) they contain. Remember that what you do here will cascade to the .nav list unless you write a more specific selector. */
+	padding: 0;
+	margin: 0;
+}
+h1, h2, h3, h4, h5, h6, p {
+	margin-top: 0;	 /* removing the top margin gets around an issue where margins can escape from their containing block. The remaining bottom margin will hold it away from any elements that follow. */
+	padding-right: 15px;
+	padding-left: 240px; /* adding the padding to the sides of the elements within the blocks, instead of the block elements themselves, gets rid of any box model math. A nested block with side padding can also be used as an alternate method. */
+}
+a img { /* this selector removes the default blue border displayed in some browsers around an image when it is surrounded by a link */
+	border: none;
+}
+/* ~~ Styling for your site's links must remain in this order - including the group of selectors that create the hover effect. ~~ */
+a:link {
+	color: #000;
+	text-decoration: underline; /* unless you style your links to look extremely unique, it's best to provide underlines for quick visual identification */
+}
+a:visited {
+	color: #000;
+	text-decoration: underline;
+}
+a:hover, a:active, a:focus { /* this group of selectors will give a keyboard navigator the same hover experience as the person using a mouse. */
+	text-decoration: none;
+}
+/* ~~ This fixed width container surrounds all other blocks ~~ */
+.container {
+	width: 960px;
+	background: #FFFFFF;
+	margin: 0 auto; /* the auto value on the sides, coupled with the width, centers the layout */
+}
+/* ~~ The header is not given a width. It will extend the full width of your layout. ~~ */
+header {
+	background: #ADB96E;
+}
+/* ~~ These are the columns for the layout. ~~ 
+
+1) Padding is only placed on the top and/or bottom of the block elements. The elements within these blocks have padding on their sides. This saves you from any "box model math". Keep in mind, if you add any side padding or border to the block itself, it will be added to the width you define to create the *total* width. You may also choose to remove the padding on the element in the block element and place a second block element within it with no width and the padding necessary for your design.
+
+2) No margin has been given to the columns since they are all floated. If you must add margin, avoid placing it on the side you're floating toward (for example: a right margin on a block set to float right). Many times, padding can be used instead. For blocks where this rule must be broken, you should add a "display:inline" declaration to the block element's rule to tame a bug where some versions of Internet Explorer double the margin.
+
+3) Since classes can be used multiple times in a document (and an element can also have multiple classes applied), the columns have been assigned class names instead of IDs. For example, two sidebar blocks could be stacked if necessary. These can very easily be changed to IDs if that's your preference, as long as you'll only be using them once per document.
+
+4) If you prefer your nav on the left instead of the right, simply float these columns the opposite direction (all left instead of all right) and they'll render in reverse order. There's no need to move the blocks around in the HTML source.
+
+*/
+.sidebar1 {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding-bottom: 10px;
+}
+.content {
+	padding: 10px 0;
+	width: 600px;
+	float: left;
+}
+aside {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding: 10px 0;
+}
+
+/* ~~ This grouped selector gives the lists in the .content area space ~~ */
+.content ul, .content ol {
+	padding: 0 15px 15px 40px; /* this padding mirrors the right padding in the headings and paragraph rule above. Padding was placed on the bottom for space between other elements on the lists and on the left to create the indention. These may be adjusted as you wish. */
+}
+
+/* ~~ The navigation list styles (can be removed if you choose to use a premade flyout menu like Spry) ~~ */
+nav ul {
+	list-style: none; /* this removes the list marker */
+	border-top: 1px solid #666; /* this creates the top border for the links - all others are placed using a bottom border on the LI */
+	margin-bottom: 15px; /* this creates the space between the navigation on the content below */
+}
+nav ul li {
+	border-bottom: 1px solid #666; /* this creates the button separation */
+}
+nav ul a, nav ul a:visited { /* grouping these selectors makes sure that your links retain their button look even after being visited */
+	padding: 5px 5px 5px 15px;
+	display: block; /* this gives the link block properties causing it to fill the whole LI containing it. This causes the entire area to react to a mouse click. */
+	width: 160px;  /*this width makes the entire button clickable for IE6. If you don't need to support IE6, it can be removed. Calculate the proper width by subtracting the padding on this link from the width of your sidebar container. */
+	text-decoration: none;
+	background: #C6D580;
+}
+nav ul a:hover, nav ul a:active, nav ul a:focus { /* this changes the background and text color for both mouse and keyboard navigators */
+	background: #ADB96E;
+	color: #FFF;
+}
+
+/* ~~ The footer ~~ */
+footer {
+	padding: 10px 0;
+	background: #CCC49F;
+	position: relative;/* this gives IE6 hasLayout to properly clear */
+	clear: both; /* this clear property forces the .container to understand where the columns end and contain them */
+}
+/* ~~ Miscellaneous float/clear classes ~~ */
+.fltrt {  /* this class can be used to float an element right in your page. The floated element must precede the element it should be next to on the page. */
+	float: right;
+	margin-left: 8px;
+}
+.fltlft { /* this class can be used to float an element left in your page. The floated element must precede the element it should be next to on the page. */
+	float: left;
+	margin-right: 8px;
+}
+.clearfloat { /* this class can be placed on a <br /> or empty block element as the final element following the last floated block (within the .container) if the footer is removed or taken out of the .container */
+	clear:both;
+	height:0;
+	font-size: 1px;
+	line-height: 0px;
+}
+
+/*HTML 5 support - Sets new HTML 5 tags to display:block so browsers know how to render the tags properly. */
+header, section, footer, aside, nav, article, figure {
+	display: block;
+}
+-->
+</style><!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script src="SpryAssets/SpryMenuBar.js" type="text/javascript"></script>
+<link href="SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<div class="container">
+  <header>
+    <a href="#"><img src="logo.jpg" alt="Insert Logo Here" name="Insert_logo" width="960" height="150" id="Insert_logo" style="background: #C6D580; display:block;" /></a>
+  </header>
+<div class="sidebar1">
+    <nav>
+      <ul>
+        <li><a href="anasayfa.html">Anasayfa</a></li>
+        <li><a href="hakkimizda.html">Hakkımızda</a></li>
+        <li><a href="iletisim.html">İletişim</a></li>
+        <li><a href="uyelik.html">Üyelik</a></li>
+      </ul>
+    </nav>
+    <aside>
+      <img src="gifler/gif8.gif" width="180" height="377">
+</aside>
+  <!-- end .sidebar1 --></div>
+  <article class="content">
+    <section>
+<blockquote>
+<ul id="MenuBar1" class="MenuBarHorizontal">
+  <li><a class="MenuBarItemSubmenu" href="#">Erkek</a>
+    <ul>
+      <li><a href="mont.html">Mont</a></li>
+      <li><a href="hirka.html">H&#305;rka</a></li>
+      <li><a href="kazak.html">Kazak</a></li>
+      <li><a href="kot.html">Kot</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Bayan</a>
+    <ul>
+      <li><a href="etek.html">Etek</a></li>
+      <li><a href="swit.html">Swit</a></li>
+      <li><a href="badi.html">Badi</a></li>
+      <li><a href="pantolon.html">Pantolon</a></li>
+    </ul>
+  </li>
+  <li><a class="MenuBarItemSubmenu" href="#">&Ccedil;ocuk</a>
+    <ul>
+      <li><a href="gomlek.html">G&ouml;mlek</a>        </li>
+      <li><a href="yelek.html">Yelek</a></li>
+      <li><a href="tulum.html">Tulum</a></li>
+      <li><a href="tisort.html">Ti&#351;ort</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Aksesuar</a>
+    <ul>
+      <li><a href="saat.html">Saat</a></li>
+      <li><a href="sal.html">&#350;al</a></li>
+      <li><a href="taki.html">Tak&#305;</a></li>
+      <li><a href="atkibere.html">Atk&#305;/Bere</a></li>
+    </ul>
+  </li>
+</ul>
+<h2>&nbsp;</h2>
+</blockquote>
+<img src="hosgeldiniz.gif" width="600" height="200">
+      
+    </section>
+    <section></section>
+    <section>
+      <h2>ÜYELİK;</h2>
+      
+       <p><input type="text" value="Adınız" maxlenght="16"></p></br>
+       <p><input type="text" value="Soyadınız" maxlenght="16"></p></br>
+       <p><input type="text" value="E-Posta Adresiniz" maxlenght="10"></p></br>
+       <p><input type="password" value="Parolanız" maxlenght="10"></p></br>
+       <p><input type="password" value="Parolanız" maxlenght="10"></p></br>
+       <p><input type="checkbox" name="oy">Site Kurallarını Kabul Ediyorum</p></br>
+       <p><input type="submit"value="Üye Ol"></p>
+     
+    </section>
+  <!-- end .content --></article>
+  <aside>
+       <form>
+Adın <input type="text" name="firstname"></br>
+Soyadın <input type="text" name="firstname"></br>
+Kullanıcı Adın <input type="text" name="firstname"></br>
+Parolan <input type="password" name="pwd"></br>
+<input type="submit" value="Giriş Yap">
+<input type="reset" value="Temizle">
+</form>
+</aside>
+  <footer>
+    <p>&nbsp;</p>
+</footer>
+  <!-- end .container --></div>
+<script type="text/javascript">
+var MenuBar1 = new Spry.Widget.MenuBar("MenuBar1", {imgDown:"SpryAssets/SpryMenuBarDownHover.gif", imgRight:"SpryAssets/SpryMenuBarRightHover.gif"});
+</script>
+</body>
+</html>
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Untitled Document</title>
+<style type="text/css">
+<!--
+body {
+	font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
+	background: #42413C;
+	margin: 0;
+	padding: 0;
+	color: #000;
+}
+/* ~~ Element/tag selectors ~~ */
+ul, ol, dl { /* Due to variations between browsers, it's best practices to zero padding and margin on lists. For consistency, you can either specify the amounts you want here, or on the list items (LI, DT, DD) they contain. Remember that what you do here will cascade to the .nav list unless you write a more specific selector. */
+	padding: 0;
+	margin: 0;
+}
+h1, h2, h3, h4, h5, h6, p {
+	margin-top: 0;	 /* removing the top margin gets around an issue where margins can escape from their containing block. The remaining bottom margin will hold it away from any elements that follow. */
+	padding-right: 25px;
+	padding-left: 240px; /* adding the padding to the sides of the elements within the blocks, instead of the block elements themselves, gets rid of any box model math. A nested block with side padding can also be used as an alternate method. */
+}
+a img { /* this selector removes the default blue border displayed in some browsers around an image when it is surrounded by a link */
+	border: none;
+}
+/* ~~ Styling for your site's links must remain in this order - including the group of selectors that create the hover effect. ~~ */
+a:link {
+	color: #000;
+	text-decoration: underline; /* unless you style your links to look extremely unique, it's best to provide underlines for quick visual identification */
+}
+a:visited {
+	color: #000;
+	text-decoration: underline;
+}
+a:hover, a:active, a:focus { /* this group of selectors will give a keyboard navigator the same hover experience as the person using a mouse. */
+	text-decoration: none;
+}
+/* ~~ This fixed width container surrounds all other blocks ~~ */
+.container {
+	width: 960px;
+	background: #FFFFFF;
+	margin: 0 auto; /* the auto value on the sides, coupled with the width, centers the layout */
+}
+/* ~~ The header is not given a width. It will extend the full width of your layout. ~~ */
+header {
+	background: #ADB96E;
+}
+/* ~~ These are the columns for the layout. ~~ 
+
+1) Padding is only placed on the top and/or bottom of the block elements. The elements within these blocks have padding on their sides. This saves you from any "box model math". Keep in mind, if you add any side padding or border to the block itself, it will be added to the width you define to create the *total* width. You may also choose to remove the padding on the element in the block element and place a second block element within it with no width and the padding necessary for your design.
+
+2) No margin has been given to the columns since they are all floated. If you must add margin, avoid placing it on the side you're floating toward (for example: a right margin on a block set to float right). Many times, padding can be used instead. For blocks where this rule must be broken, you should add a "display:inline" declaration to the block element's rule to tame a bug where some versions of Internet Explorer double the margin.
+
+3) Since classes can be used multiple times in a document (and an element can also have multiple classes applied), the columns have been assigned class names instead of IDs. For example, two sidebar blocks could be stacked if necessary. These can very easily be changed to IDs if that's your preference, as long as you'll only be using them once per document.
+
+4) If you prefer your nav on the left instead of the right, simply float these columns the opposite direction (all left instead of all right) and they'll render in reverse order. There's no need to move the blocks around in the HTML source.
+
+*/
+.sidebar1 {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding-bottom: 10px;
+}
+.content {
+	padding: 10px 0;
+	width: 600px;
+	float: left;
+}
+aside {
+	float: left;
+	width: 180px;
+	background: #EADCAE;
+	padding: 10px 0;
+}
+
+/* ~~ This grouped selector gives the lists in the .content area space ~~ */
+.content ul, .content ol {
+	padding: 0 15px 15px 40px; /* this padding mirrors the right padding in the headings and paragraph rule above. Padding was placed on the bottom for space between other elements on the lists and on the left to create the indention. These may be adjusted as you wish. */
+}
+
+/* ~~ The navigation list styles (can be removed if you choose to use a premade flyout menu like Spry) ~~ */
+nav ul {
+	list-style: none; /* this removes the list marker */
+	border-top: 1px solid #666; /* this creates the top border for the links - all others are placed using a bottom border on the LI */
+	margin-bottom: 15px; /* this creates the space between the navigation on the content below */
+}
+nav ul li {
+	border-bottom: 1px solid #666; /* this creates the button separation */
+}
+nav ul a, nav ul a:visited { /* grouping these selectors makes sure that your links retain their button look even after being visited */
+	padding: 5px 5px 5px 15px;
+	display: block; /* this gives the link block properties causing it to fill the whole LI containing it. This causes the entire area to react to a mouse click. */
+	width: 160px;  /*this width makes the entire button clickable for IE6. If you don't need to support IE6, it can be removed. Calculate the proper width by subtracting the padding on this link from the width of your sidebar container. */
+	text-decoration: none;
+	background: #C6D580;
+}
+nav ul a:hover, nav ul a:active, nav ul a:focus { /* this changes the background and text color for both mouse and keyboard navigators */
+	background: #ADB96E;
+	color: #FFF;
+}
+
+/* ~~ The footer ~~ */
+footer {
+	padding: 10px 0;
+	background: #CCC49F;
+	position: relative;/* this gives IE6 hasLayout to properly clear */
+	clear: both; /* this clear property forces the .container to understand where the columns end and contain them */
+}
+/* ~~ Miscellaneous float/clear classes ~~ */
+.fltrt {  /* this class can be used to float an element right in your page. The floated element must precede the element it should be next to on the page. */
+	float: right;
+	margin-left: 8px;
+}
+.fltlft { /* this class can be used to float an element left in your page. The floated element must precede the element it should be next to on the page. */
+	float: left;
+	margin-right: 8px;
+}
+.clearfloat { /* this class can be placed on a <br /> or empty block element as the final element following the last floated block (within the .container) if the footer is removed or taken out of the .container */
+	clear:both;
+	height:0;
+	font-size: 1px;
+	line-height: 0px;
+}
+
+/*HTML 5 support - Sets new HTML 5 tags to display:block so browsers know how to render the tags properly. */
+header, section, footer, aside, nav, article, figure {
+	display: block;
+}
+-->
+</style><!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script src="SpryAssets/SpryMenuBar.js" type="text/javascript"></script>
+<link href="SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<div class="container">
+  <header>
+    <a href="#"><img src="logo.jpg" alt="Insert Logo Here" name="Insert_logo" width="960" height="150" id="Insert_logo" style="background: #C6D580; display:block;" /></a>
+  </header>
+<div class="sidebar1">
+    <nav>
+      <ul>
+        <li><a href="anasayfa.html">Anasayfa</a></li>
+        <li><a href="hakkimizda.html">Hakkımızda</a></li>
+        <li><a href="iletisim.html">İletişim</a></li>
+        <li><a href="uyelik.html">Üyelik</a></li>
+      </ul>
+    </nav>
+  <img src="gifler/gif5.gif" width="180" height="240">  <!-- end .sidebar1 --></div>
+  <article class="content">
+    <section>
+<blockquote>
+<ul id="MenuBar1" class="MenuBarHorizontal">
+  <li><a class="MenuBarItemSubmenu" href="#">Erkek</a>
+    <ul>
+      <li><a href="mont.html">Mont</a></li>
+      <li><a href="hirka.html">H&#305;rka</a></li>
+      <li><a href="kazak.html">Kazak</a></li>
+      <li><a href="kot.html">Kot</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Bayan</a>
+    <ul>
+      <li><a href="etek.html">Etek</a></li>
+      <li><a href="swit.html">Swit</a></li>
+      <li><a href="badi.html">Badi</a></li>
+      <li><a href="pantolon.html">Pantolon</a></li>
+    </ul>
+  </li>
+  <li><a class="MenuBarItemSubmenu" href="#">&Ccedil;ocuk</a>
+    <ul>
+      <li><a href="gomlek.html">G&ouml;mlek</a>        </li>
+      <li><a href="yelek.html">Yelek</a></li>
+      <li><a href="tulum.html">Tulum</a></li>
+      <li><a href="tisort.html">Ti&#351;ort</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="MenuBarItemSubmenu">Aksesuar</a>
+    <ul>
+      <li><a href="saat.html">Saat</a></li>
+      <li><a href="sal.html">&#350;al</a></li>
+      <li><a href="taki.html">Tak&#305;</a></li>
+      <li><a href="atkibere.html">Atk&#305;/Bere</a></li>
+    </ul>
+  </li>
+</ul>
+<h2>&nbsp;</h2>
+</blockquote>
+<p>&nbsp;</p>
+      <h2>YELEKLER</h2>
+    </section>
+    <section>
+    <img src="yelek/yelek.jpg" width="294" height="470"> <img src="yelek/yelek1.jpg" width="300" height="470"><img src="yelek/yelek2.jpg" width="294" height="470"> <img src="yelek/yelek3.jpg" width="300" height="470"><img src="yelek/yelek4.jpg" width="294" height="470"> <img src="yelek/yelek5.jpg" width="300" height="470"><img src="yelek/yelek6.jpg" width="294" height="470"> <img src="yelek/yelek7.jpg" width="300" height="470"><img src="yelek/yelek8.jpg" width="294" height="470"> <img src="yelek/yelek9.jpg" width="300" height="470"></section>
+    <section>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+    </section>
+  <!-- end .content --></article>
+  <aside>
+        <form>
+Adın <input type="text" name="firstname"></br>
+Soyadın <input type="text" name="firstname"></br>
+Kullanıcı Adın <input type="text" name="firstname"></br>
+Parolan <input type="password" name="pwd"></br>
+<input type="submit" value="Giriş Yap">
+<input type="reset" value="Temizle">
+</form>
+</aside>
+  <footer>
+    <p>&nbsp;</p>
+</footer>
+  <!-- end .container --></div>
+<script type="text/javascript">
+var MenuBar1 = new Spry.Widget.MenuBar("MenuBar1", {imgDown:"SpryAssets/SpryMenuBarDownHover.gif", imgRight:"SpryAssets/SpryMenuBarRightHover.gif"});
+</script>
+</body>
+</html>
